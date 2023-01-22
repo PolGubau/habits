@@ -1,13 +1,15 @@
 import { useEffect } from "react";
-import { IExpense } from "./utils/initialStates";
+
 import { useRecoilValue } from "recoil";
 import useExpensesFunctions from "./utils/useExpensesFunctions";
-import { getExpenses } from "src/state/Selectors";
+import { FoodFormState, getExpenses, getFood } from "src/state/Selectors";
 import { NewExpenseForm } from "src/components/Forms/ExpensesForm/NewExpenseForm";
+import { IFood } from "src/components/Forms/ExpensesForm/utils/initialState";
+import { NewFoodForm } from "src/components/Forms/Food/FoodNewForm";
 
-const Expenses = () => {
+const FoodPage = () => {
   const f = useExpensesFunctions();
-  const expenses = useRecoilValue(getExpenses);
+  const food = useRecoilValue(getFood);
 
   useEffect(() => {
     f.getExpenses();
@@ -16,15 +18,12 @@ const Expenses = () => {
   return (
     <>
       <div>
-        {expenses &&
-          expenses.map((item: IExpense) => (
+        {food &&
+          food.map((item: IFood) => (
             <div key={item.id}>
               <p>{item.id}</p>
               <p>{item.name}</p>
-              <p>{item.amount / 100}</p>
-              <p>{item.date}</p>
-              <p>{item.category}</p>
-              <p>{item.shop}</p>
+
               <button
                 onClick={() => {
                   f.deleteExpense(item.id);
@@ -35,8 +34,8 @@ const Expenses = () => {
             </div>
           ))}
       </div>
-      <NewExpenseForm />
+      <NewFoodForm />
     </>
   );
 };
-export default Expenses;
+export default FoodPage;

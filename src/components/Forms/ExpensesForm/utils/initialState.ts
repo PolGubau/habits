@@ -1,19 +1,17 @@
-export const initialNewExpenseState = {
+export const initialNewFoodState = {
   name: "",
-  amount: 0,
+  location: "",
   date: new Date().toISOString().slice(0, 10),
   time: new Date().toISOString().slice(11, 16),
-  category: "",
-  shop: "",
+  mainIngredients: [],
 };
 
-export interface IExpense {
+export interface IFood {
   id: number;
   name: string;
-  amount: number;
+  location: string;
   date: string;
   time: string;
-  category: string;
-  shop: string;
+  mainIngredients: string[];
   userID: number;
 }
