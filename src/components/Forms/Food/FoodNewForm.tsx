@@ -1,17 +1,15 @@
 import axios from "axios";
 import { useRecoilState } from "recoil";
-import useExpensesFunctions from "src/pages/expenses/utils/useExpensesFunctions";
 import { FoodFormState } from "src/state/Selectors";
 import PATH from "src/utils/path";
 import { useState } from "react";
-import { initialNewFoodState } from "../ExpensesForm/utils/initialState";
+import { initialNewFoodState } from "./utils/initialState";
+import useFoodFunctions from "./utils/useFoodFunctions";
 
 export const NewFoodForm = () => {
-  const f = useExpensesFunctions();
+  const f = useFoodFunctions();
 
-  const [formState, setNewState] = useRecoilState(FoodFormState);
-
-  const [ingredients, setIngredients] = useState<string[]>([]);
+  const [formState, setFormState] = useRecoilState(FoodFormState);
 
   //
 
@@ -20,7 +18,7 @@ export const NewFoodForm = () => {
   //
 
   const modifyNewFood = (e: { target: { name: string; value: string } }) => {
-    setNewState({ ...formState, [e.target.name]: e.target.value });
+    setFormState({ ...formState, [e.target.name]: e.target.value });
   };
 
   //
@@ -28,17 +26,22 @@ export const NewFoodForm = () => {
   const sendNewFood = (e: any) => {
     e.preventDefault();
     try {
-      axios.post(PATH.API.EXPENSES, formState);
-      setNewState(initialNewFoodState);
-      f.getExpenses();
+      axios.post(PATH.API.FOOD, formState);
+      setFormState(initialNewFoodState);
+      f.getFood();
     } catch (error) {
       console.log("error", error);
     }
   };
   const addNewIngredient = (e: any) => {
     e.preventDefault();
-    newIngredient && setIngredients([...ingredients, newIngredient]);
-    setNewIngredient("");
+
+    setFormState({
+      ...formState,
+      ingredients: [...formState.ingredients, newIngredient],
+    });
+
+    newIngredient && setNewIngredient("");
   };
 
   return (
@@ -75,7 +78,7 @@ export const NewFoodForm = () => {
       />
       <div>
         Ingredientes:
-        {ingredients.map((ingredient, index) => (
+        {formState.ingredients.map((ingredient, index) => (
           <p key={index}>{ingredient}</p>
         ))}
       </div>

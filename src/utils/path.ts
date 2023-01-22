@@ -6,11 +6,13 @@ const DOMINIO =
 const PATH = {
   HOME: `${DOMINIO}`,
   EXPENSES: `${DOMINIO}/expenses`,
+  FOOD: `${DOMINIO}/food`,
 
   // API ENDPOINTS
 
   API: {
     EXPENSES: `${DOMINIO}/api/expenses`,
+    FOOD: `${DOMINIO}/api/food`,
   },
 };
 export default PATH;

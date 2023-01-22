@@ -3,30 +3,29 @@ import PATH from "src/utils/path";
 import { useSetRecoilState } from "recoil";
 import { expensesState } from "src/state/Atoms";
 
-const useExpensesFunctions = () => {
+const useFoodFunctions = () => {
   const setExpenses = useSetRecoilState(expensesState);
 
   return {
-    getExpenses: async () => {
+    getFood: async () => {
       try {
-        const res = await axios.get(PATH.API.EXPENSES);
-
+        const res = await axios.get(PATH.API.FOOD);
         setExpenses(res.data);
       } catch (error) {
         console.log(error);
       }
     },
-    getExpenseByID: async (id: number) => {
+    getFoodByID: async (id: number) => {
       try {
-        const res = await axios.get(`${PATH.API.EXPENSES}/${id}`);
+        const res = await axios.get(`${PATH.API.FOOD}/${id}`);
         setExpenses(res.data);
       } catch (error) {
         return error;
       }
     },
-    deleteExpense: async (id: number) => {
+    deleteFood: async (id: number) => {
       try {
-        await axios.delete(`${PATH.API.EXPENSES}/${id}`);
+        await axios.delete(`${PATH.API.FOOD}/${id}`);
         setExpenses((oldExpenses) =>
           oldExpenses.filter((expense: any) => expense.id !== id)
         );
@@ -37,4 +36,4 @@ const useExpensesFunctions = () => {
   };
 };
 
-export default useExpensesFunctions;
+export default useFoodFunctions;

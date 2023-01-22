@@ -1,5 +1,5 @@
 import { atom } from "recoil";
-import { initialNewFoodState } from "src/components/Forms/ExpensesForm/utils/initialState";
+import { initialNewFoodState } from "src/components/Forms/Food/utils/initialState";
 import { initialNewExpenseState } from "src/pages/expenses/utils/initialStates";
 
 export const expensesState = atom({

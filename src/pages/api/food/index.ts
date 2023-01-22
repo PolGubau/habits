@@ -1,7 +1,7 @@
 //NEXT.js endpoint for getting all expenses for a user
 
 import type { NextApiRequest, NextApiResponse } from "next";
-import { IFood } from "src/components/Forms/ExpensesForm/utils/initialState";
+import { IFood } from "src/components/Forms/Food/utils/initialState";
 import { IExpense } from "src/pages/expenses/utils/initialStates";
 import { conn } from "src/utils/database";
 
@@ -23,7 +23,7 @@ export default async function handler(
 
     case "POST":
       try {
-        const { name, mainIngredients, location, date, time }: IFood = body;
+        const { name, ingredients, location, date, time } = body;
         console.log(body);
 
         const dateTime = new Date(`${date} ${time}`);
@@ -36,7 +36,7 @@ export default async function handler(
           name,
           location,
           dateTime,
-          mainIngredients,
+          ingredients,
           userID,
         ]);
         return res.json(response.rows);

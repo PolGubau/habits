@@ -1,18 +1,17 @@
 import { useEffect } from "react";
 
 import { useRecoilValue } from "recoil";
-import useExpensesFunctions from "./utils/useExpensesFunctions";
-import { FoodFormState, getExpenses, getFood } from "src/state/Selectors";
-import { NewExpenseForm } from "src/components/Forms/ExpensesForm/NewExpenseForm";
-import { IFood } from "src/components/Forms/ExpensesForm/utils/initialState";
+import { IFood } from "src/components/Forms/Food/utils/initialState";
 import { NewFoodForm } from "src/components/Forms/Food/FoodNewForm";
+import { getFood } from "src/state/Selectors";
+import useFoodFunctions from "src/components/Forms/Food/utils/useFoodFunctions";
 
 const FoodPage = () => {
-  const f = useExpensesFunctions();
+  const f = useFoodFunctions();
   const food = useRecoilValue(getFood);
 
   useEffect(() => {
-    f.getExpenses();
+    f.getFood();
   }, []);
 
   return (
@@ -26,7 +25,7 @@ const FoodPage = () => {
 
               <button
                 onClick={() => {
-                  f.deleteExpense(item.id);
+                  f.deleteFood(item.id);
                 }}
               >
                 X

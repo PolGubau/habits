@@ -3,7 +3,7 @@ export const initialNewFoodState = {
   location: "",
   date: new Date().toISOString().slice(0, 10),
   time: new Date().toISOString().slice(11, 16),
-  mainIngredients: [],
+  ingredients: [""],
 };
 
 export interface IFood {
@@ -12,6 +12,6 @@ export interface IFood {
   location: string;
   date: string;
   time: string;
-  mainIngredients: string[];
+  ingredients: string[];
   userID: number;
 }
