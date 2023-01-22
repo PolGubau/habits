@@ -1,0 +1,43 @@
+.formulario {
+  margin-top: 20px;
+  display: flex;
+  flex-direction: column;
+  width: 40%;
+}
+.message {
+  margin-bottom: 15px;
+}
+.input {
+  width: 100%;
+  padding: 10px;
+  height: 49px;
+  border-radius: 0 10px 10px 0;
+  border: 1px solid var(--background);
+}
+.inputError {
+  width: 100%;
+  padding: 10px;
+  height: 49px;
+  border-radius: 0 10px 10px 0;
+  border: 1px solid var(--wrong);
+}
+.inputBig {
+  height: 49px;
+  margin-bottom: 10px;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+  flex-wrap: nowrap;
+  align-content: center;
+}
+.inputIcon {
+  height: 49px;
+  width: 49px;
+  border-radius: 10px 0 0 10px;
+  display: flex;
+  background-color: var(--background);
+  align-items: center;
+  justify-content: center;
+  align-content: center;
+}

@@ -1,0 +1,8 @@
+.introContainer {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(230px, 2fr));
+
+  grid-gap: 15px;
+  border-bottom: 1px solid var(--background);
+  margin: 20px 0;
+}

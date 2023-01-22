@@ -1,0 +1,50 @@
+.heading1 {
+  font-size: 4em;
+  font-weight: bold;
+  color: #000;
+  margin-bottom: 15px;
+}
+
+.timeago {
+  margin: 5px 0 15px 0;
+}
+
+.header {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(230px, 2fr));
+  margin-bottom: 20px;
+}
+
+.headerLeft {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-start;
+}
+
+.rightHeader {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  justify-content: flex-end;
+  gap: 10px;
+  align-content: flex-start;
+  flex-wrap: wrap;
+}
+
+.avatar {
+  border-radius: 50%;
+  width: 100px;
+}
+
+.followButton {
+  margin: 5px 10px 10px 0;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  gap: 10px;
+  align-content: center;
+  align-items: center;
+  justify-content: flex-start;
+  display: flex;
+}

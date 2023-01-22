@@ -1,0 +1,27 @@
+.formulario {
+  margin-top: 20px;
+  display: flex;
+  flex-direction: column;
+  width: 40%;
+  gap: 10px;
+}
+
+.message {
+  margin-bottom: 15px;
+}
+
+.input {
+  width: 100%;
+  padding: 10px;
+  height: 49px;
+  border-radius: 0 10px 10px 0;
+  border: 1px solid var(--background);
+}
+
+.inputError {
+  width: 100%;
+  padding: 10px;
+  height: 49px;
+  border-radius: 0 10px 10px 0;
+  border: 1px solid var(--wrong);
+}
