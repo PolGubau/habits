@@ -3,9 +3,10 @@ import { IExpense } from "./utils/initialStates";
 import { useRecoilState, useRecoilValue } from "recoil";
 import useExpensesFunctions from "./utils/useExpensesFunctions";
 import { getExpenses } from "src/Recoil/Selectors";
-import { NewExpenseForm } from "src/components/Forms/ExpensesForm/NewExpenseForm";
 import LayoutPage from "src/Layouts/Layout";
 import { loadingAtom } from "src/Recoil/Atoms";
+import ExpenseForm from "src/components/Forms/ExpensesForm/ExpenseForm";
+import { NewExpenseForm } from "src/components/Forms/ExpensesForm/NewExpenseForm";
 
 const Expenses = () => {
   const [, setLoading] = useRecoilState(loadingAtom);
@@ -42,6 +43,7 @@ const Expenses = () => {
             </div>
           ))}
       </div>
+      <ExpenseForm />
       <NewExpenseForm />
     </LayoutPage>
   );

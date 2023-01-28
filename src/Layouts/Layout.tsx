@@ -1,10 +1,10 @@
 import React from "react";
 
-import { Layout, Menu, theme } from "antd";
+import { FloatButton, Layout, Menu, theme } from "antd";
 import { useState } from "react";
 import styled from "styled-components";
 import { navElements } from "./NavElements";
-
+import { QuestionCircleOutlined } from "@ant-design/icons";
 const { Content, Sider } = Layout;
 import { useRouter } from "next/router";
 import { useRecoilState } from "recoil";
@@ -25,6 +25,7 @@ const LayoutPage = ({ children }: any) => {
   return (
     <Style>
       <Layout>
+        <FloatButton icon={<QuestionCircleOutlined />} />
         <Sider
           style={{ background: colorBgContainer }}
           collapsible
