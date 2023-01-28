@@ -1,7 +1,7 @@
 import axios from "axios";
 import PATH from "src/utils/path";
 import { useSetRecoilState } from "recoil";
-import { expensesState } from "src/state/Atoms";
+import { expensesState } from "src/Recoil/Atoms";
 
 const useFoodFunctions = () => {
   const setExpenses = useSetRecoilState(expensesState);

@@ -1,6 +1,6 @@
 import axios from "axios";
 import { useRecoilState } from "recoil";
-import { FoodFormState } from "src/state/Selectors";
+import { FoodFormState } from "src/Recoil/Selectors";
 import PATH from "src/utils/path";
 import { useState } from "react";
 import { initialNewFoodState } from "./utils/initialState";

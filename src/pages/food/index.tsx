@@ -1,12 +1,18 @@
 import { useEffect } from "react";
 
-import { useRecoilValue } from "recoil";
+import { useRecoilState, useRecoilValue } from "recoil";
 import { IFood } from "src/components/Forms/Food/utils/initialState";
 import { NewFoodForm } from "src/components/Forms/Food/FoodNewForm";
-import { getFood } from "src/state/Selectors";
+import { getFood } from "src/Recoil/Selectors";
 import useFoodFunctions from "src/components/Forms/Food/utils/useFoodFunctions";
+import LayoutPage from "src/Layouts/Layout";
+import { loadingAtom } from "src/Recoil/Atoms";
 
 const FoodPage = () => {
+  const [, setLoading] = useRecoilState(loadingAtom);
+  useEffect(() => {
+    setLoading(false);
+  }, []);
   const f = useFoodFunctions();
   const food = useRecoilValue(getFood);
 
@@ -15,7 +21,7 @@ const FoodPage = () => {
   }, []);
 
   return (
-    <>
+    <LayoutPage>
       <div>
         {food &&
           food.map((item: IFood) => (
@@ -34,7 +40,7 @@ const FoodPage = () => {
           ))}
       </div>
       <NewFoodForm />
-    </>
+    </LayoutPage>
   );
 };
 export default FoodPage;

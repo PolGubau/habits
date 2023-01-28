@@ -2,6 +2,11 @@ import { atom } from "recoil";
 import { initialNewFoodState } from "src/components/Forms/Food/utils/initialState";
 import { initialNewExpenseState } from "src/pages/expenses/utils/initialStates";
 
+export const loadingAtom = atom({
+  key: "loadingStateAtom",
+  default: false,
+});
+
 export const expensesState = atom({
   key: "expensesState",
   default: [],

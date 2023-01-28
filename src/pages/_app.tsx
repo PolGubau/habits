@@ -8,7 +8,7 @@ function MyApp({ Component, pageProps }: AppProps) {
   return (
     <RecoilRoot>
       <Head>
-        <title>title</title>
+        <title>Tracking</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <Component {...pageProps} />

@@ -1,12 +1,9 @@
-import BodyComponent from "src/components/BodyComponent/BodyComponent";
-import AppLayout from "src/components/Layout/AppLayout/index";
+import Hero from "src/components/Hero/Hero";
+import LoadingPage from "src/Layouts/Loading/Loading";
+import { useRecoilValue } from "recoil";
+import { loadingAtom } from "src/Recoil/Atoms";
 
-export default function HomePage(): JSX.Element {
-  return (
-    <AppLayout>
-      <main className="main">
-        <BodyComponent />
-      </main>
-    </AppLayout>
-  );
+export default function HomePage() {
+  const loading = useRecoilValue(loadingAtom);
+  return loading ? <LoadingPage /> : <Hero />;
 }

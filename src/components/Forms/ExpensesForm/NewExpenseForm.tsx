@@ -3,7 +3,7 @@ import React from "react";
 import { useRecoilState } from "recoil";
 import { initialNewExpenseState } from "src/pages/expenses/utils/initialStates";
 import useExpensesFunctions from "src/pages/expenses/utils/useExpensesFunctions";
-import { getNewExpense } from "src/state/Selectors";
+import { getNewExpense } from "src/Recoil/Selectors";
 import PATH from "src/utils/path";
 
 export const NewExpenseForm = () => {

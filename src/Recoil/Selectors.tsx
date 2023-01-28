@@ -1,5 +1,20 @@
 import { selector } from "recoil";
-import { expensesState, foodNewState, newExpenseState } from "./Atoms";
+import {
+  expensesState,
+  foodNewState,
+  loadingAtom,
+  newExpenseState,
+} from "./Atoms";
+
+export const loadingSelector = selector({
+  key: "loadingStateSelector",
+  get: ({ get }) => {
+    return get(loadingAtom);
+  },
+  set: ({ set }, newValue) => {
+    set(loadingAtom, newValue);
+  },
+});
 
 export const getExpenses = selector({
   key: "getExpenses",
