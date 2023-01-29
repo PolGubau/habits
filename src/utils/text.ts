@@ -10,7 +10,3 @@ export const messageSignUp = {
   passwordIncorrect: 'Your username or password are incorrect.'
 }
 
-export const messageCreateCollection = {
-  base: 'Create your collection!'
-
-}

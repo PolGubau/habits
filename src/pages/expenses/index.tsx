@@ -2,9 +2,8 @@ import { useEffect } from "react";
 import { IExpense } from "./utils/initialStates";
 import { useRecoilState, useRecoilValue } from "recoil";
 import useExpensesFunctions from "./utils/useExpensesFunctions";
-import { getExpenses } from "src/Recoil/Selectors";
 import LayoutPage from "src/Layouts/Layout";
-import { loadingAtom } from "src/Recoil/Atoms";
+import { expensesState, loadingAtom } from "src/Recoil/Atoms";
 import ExpenseForm from "src/components/Forms/ExpensesForm/ExpenseForm";
 import { NewExpenseForm } from "src/components/Forms/ExpensesForm/NewExpenseForm";
 
@@ -15,7 +14,7 @@ const Expenses = () => {
   }, []);
 
   const f = useExpensesFunctions();
-  const expenses = useRecoilValue(getExpenses);
+  const expenses = useRecoilValue(expensesState);
 
   useEffect(() => {
     f.getExpenses();

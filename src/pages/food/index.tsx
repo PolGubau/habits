@@ -3,10 +3,9 @@ import { useEffect } from "react";
 import { useRecoilState, useRecoilValue } from "recoil";
 import { IFood } from "src/components/Forms/Food/utils/initialState";
 import { NewFoodForm } from "src/components/Forms/Food/FoodNewForm";
-import { getFood } from "src/Recoil/Selectors";
 import useFoodFunctions from "src/components/Forms/Food/utils/useFoodFunctions";
 import LayoutPage from "src/Layouts/Layout";
-import { loadingAtom } from "src/Recoil/Atoms";
+import { foodState, loadingAtom } from "src/Recoil/Atoms";
 
 const FoodPage = () => {
   const [, setLoading] = useRecoilState(loadingAtom);
@@ -14,7 +13,7 @@ const FoodPage = () => {
     setLoading(false);
   }, []);
   const f = useFoodFunctions();
-  const food = useRecoilValue(getFood);
+  const food = useRecoilValue(foodState);
 
   useEffect(() => {
     f.getFood();

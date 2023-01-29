@@ -3,13 +3,13 @@ import React from "react";
 import { useRecoilState } from "recoil";
 import { initialNewExpenseState } from "src/pages/expenses/utils/initialStates";
 import useExpensesFunctions from "src/pages/expenses/utils/useExpensesFunctions";
-import { getNewExpense } from "src/Recoil/Selectors";
+import { newExpenseState } from "src/Recoil/Atoms";
 import PATH from "src/utils/path";
 
 export const NewExpenseForm = () => {
   const f = useExpensesFunctions();
 
-  const [newExpenses, setNewExpenses] = useRecoilState(getNewExpense);
+  const [newExpenses, setNewExpenses] = useRecoilState(newExpenseState);
 
   const modifyNewExpense = (e: { target: { name: string; value: string } }) => {
     setNewExpenses({ ...newExpenses, [e.target.name]: e.target.value });

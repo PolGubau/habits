@@ -1,55 +1,14 @@
 import { selector } from "recoil";
-import {
-  expensesState,
-  foodNewState,
-  loadingAtom,
-  newExpenseState,
-} from "./Atoms";
+import { yourShopsAtom } from "./Atoms";
 
-export const loadingSelector = selector({
-  key: "loadingStateSelector",
+export const getShopCategories = selector({
+  key: "getShopCategoriesSelector",
   get: ({ get }) => {
-    return get(loadingAtom);
+    const yourShops = get(yourShopsAtom);
+    const categories = yourShops.map((cat) => cat.label);
+    return categories;
   },
-  set: ({ set }, newValue) => {
-    set(loadingAtom, newValue);
-  },
-});
-
-export const getExpenses = selector({
-  key: "getExpenses",
-  get: ({ get }) => {
-    return get(expensesState);
-  },
-  set: ({ set }, newValue) => {
-    set(expensesState, newValue);
-  },
-});
-export const getNewExpense = selector({
-  key: "getNewExpense",
-  get: ({ get }) => {
-    return get(newExpenseState);
-  },
-  set: ({ set }, newValue) => {
-    set(newExpenseState, newValue);
-  },
-});
-//
-export const getFood = selector({
-  key: "getFood",
-  get: ({ get }) => {
-    return get(expensesState);
-  },
-  set: ({ set }, newValue) => {
-    set(expensesState, newValue);
-  },
-});
-export const FoodFormState = selector({
-  key: "FoodFormState",
-  get: ({ get }) => {
-    return get(foodNewState);
-  },
-  set: ({ set }, newValue) => {
-    set(foodNewState, newValue);
+  set: ({ set }, newValue: any) => {
+    set(yourShopsAtom, (oldValue) => [...oldValue, newValue]);
   },
 });

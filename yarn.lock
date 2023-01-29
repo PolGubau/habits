@@ -857,7 +857,7 @@
   "resolved" "https://registry.npmjs.org/csstype/-/csstype-3.1.0.tgz"
   "version" "3.1.0"
 
-"dayjs@^1.11.1", "dayjs@>= 1.x":
+"dayjs@^1.11.1", "dayjs@^1.11.7", "dayjs@>= 1.x":
   "integrity" "sha512-+Yw9U6YO5TQohxLcIkrXBeY73WP3ejHWVvx8XCk3gxvQDCTEmS48ZrSZCKciI7Bhl/uCMyxYtE9UqRILmFphkQ=="
   "resolved" "https://mesalvo.jfrog.io/artifactory/api/npm/default-npm-virtual/dayjs/-/dayjs-1.11.7.tgz"
   "version" "1.11.7"
@@ -1400,6 +1400,11 @@
   "version" "3.1.2"
   dependencies:
     "brace-expansion" "^1.1.7"
+
+"moment@^2.29.4", "moment@>= 2.x":
+  "integrity" "sha512-5LC9SOxjSc2HF6vO2CyuTDNivEdoz2IvyJJGj6X8DJ0eFyfszE0QiEd+iXmBvUP3WHxSjFH/vIsA0EN00cgr8w=="
+  "resolved" "https://mesalvo.jfrog.io/artifactory/api/npm/default-npm-virtual/moment/-/moment-2.29.4.tgz"
+  "version" "2.29.4"
 
 "ms@2.1.2":
   "integrity" "sha512-sGkPx+VjMtmA6MX27oA4FBFELFCZZ4S4XqeGOXCv68tT+jb3vk/RyaKWP0PTKyWtmLSM0b+adUTEvbs1PEaH2w=="
