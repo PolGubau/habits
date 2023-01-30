@@ -6,12 +6,3 @@ export const initialNewFoodState = {
   ingredients: [""],
 };
 
-export interface IFood {
-  id: number;
-  name: string;
-  location: string;
-  date: string;
-  time: string;
-  ingredients: string[];
-  userID: number;
-}

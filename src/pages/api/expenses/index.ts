@@ -22,21 +22,24 @@ export default async function handler(
 
     case "POST":
       try {
-        const { name, amount, date, time, category, shop } = body;
+        const { name, amount, price, date, time, category, shop, isMinus } =
+          body;
 
         const dateTime = new Date(`${date} ${time}`);
         const userID = 1;
 
         const query =
-          'INSERT INTO "public"."expenses" ("name", "amount", "date","userID", "category", "shop" ) VALUES ($1, $2, $3, $4, $5, $6) RETURNING *;';
+          'INSERT INTO "public"."expenses" ("name", "amount","price", "date","userID", "category", "shop","isMinus" ) VALUES ($1, $2, $3, $4, $5, $6, $7, $8) RETURNING *;';
 
         const response = await conn.query(query, [
           name,
           amount,
+          price,
           dateTime,
           userID,
           category,
           shop,
+          isMinus,
         ]);
         return res.json(response.rows);
       } catch (error) {
