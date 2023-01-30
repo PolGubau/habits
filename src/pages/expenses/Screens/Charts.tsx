@@ -1,29 +1,37 @@
 import React from "react";
-import { Line } from "@ant-design/charts";
+import {
+  LineChart,
+  Line,
+  CartesianGrid,
+  XAxis,
+  YAxis,
+  Tooltip,
+} from "recharts";
+import { useRecoilValue } from "recoil";
+import { expensesState } from "src/Recoil/Atoms";
 
-const LineGraph: React.FC = () => {
-  const data = [
-    { year: "1991", value: 3 },
-    { year: "1992", value: 4 },
-    { year: "1993", value: 3.5 },
-    { year: "1994", value: 5 },
-    { year: "1995", value: 4.9 },
-    { year: "1996", value: 6 },
-    { year: "1997", value: 7 },
-    { year: "1998", value: 9 },
-    { year: "1999", value: 13 },
-  ];
+const LineChartScreen = () => {
+  const data = useRecoilValue(expensesState);
 
-  const config = {
-    data,
-    height: 400,
-    xField: "year",
-    yField: "value",
-    point: {
-      size: 5,
-      shape: "diamond",
-    },
-  };
-  return <Line {...config} />;
+  const [width, setWidth] = React.useState(0);
+
+  React.useEffect(() => {
+    const handleResize = () => setWidth(window.innerWidth);
+    window.addEventListener("resize", handleResize);
+    setWidth(window.innerWidth);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
+
+  const percent = width / 100;
+  return (
+    <LineChart width={percent * 60} height={300} data={data}>
+      <Line type="monotone" dataKey="price" stroke="#8884d8" />
+      <CartesianGrid stroke="#ddd" />
+      <XAxis dataKey="date" />
+      <YAxis />
+      <Tooltip />
+    </LineChart>
+  );
 };
-export default LineGraph;
+
+export default LineChartScreen;

@@ -88,6 +88,7 @@ export const NewExpenseForm = () => {
           type="number"
           min="0.00"
           max="10000.00"
+          step="0.01"
           name={"price"}
           placeholder={"price"}
           onChange={floatToInteger}

@@ -4,10 +4,11 @@ import { useRecoilState, useRecoilValue } from "recoil";
 import useExpensesFunctions from "./utils/useExpensesFunctions";
 import LayoutPage from "src/Layouts/Layout";
 import { expensesState, loadingAtom } from "src/Recoil/Atoms";
-import { message, notification, Table, Tabs, TabsProps, Tag } from "antd";
+import { message, Table, Tabs, TabsProps, Tag } from "antd";
 import { NewExpenseForm } from "src/components/Forms/ExpensesForm/NewExpenseForm";
 import moment from "moment";
 import { ExpensesPageStyle } from "src/styles/PageStyles/ExpensesPageStyles";
+import LineChart from "./Screens/Charts";
 
 const Expenses = () => {
   const [, setLoading] = useRecoilState(loadingAtom);
@@ -16,10 +17,10 @@ const Expenses = () => {
   }, []);
   const [messageApi, contextHolder] = message.useMessage();
 
-  const openNotification = () => {
+  const messageSuccess = () => {
     messageApi.open({
       type: "success",
-      content: "This is a success message",
+      content: "Your expense has been deleted",
     });
   };
   //
@@ -108,8 +109,8 @@ const Expenses = () => {
               e.currentTarget.parentElement?.parentElement?.getAttribute(
                 "data-row-key"
               );
-            // handleDeleteRow(id);
-            openNotification("top");
+            handleDeleteRow(id);
+            messageSuccess();
           }}
         >
           Delete
@@ -134,7 +135,7 @@ const Expenses = () => {
     {
       key: "2",
       label: `Gráfico`,
-      children: `Content of Tab Pane 2`,
+      children: <LineChart />,
     },
   ];
   return (
