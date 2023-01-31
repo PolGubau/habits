@@ -48,6 +48,7 @@ export const NewExpenseForm = () => {
     f.getExpenses();
     setNewExpenses(initialNewExpenseState);
   };
+
   return (
     <ExpensesFormStyle onSubmit={sendNewExpense}>
       <Input
