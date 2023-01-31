@@ -1,8 +1,4 @@
-import {
-  BarChartOutlined,
-  NotificationOutlined,
-  UserOutlined,
-} from "@ant-design/icons";
+import { BarChartOutlined, UserOutlined } from "@ant-design/icons";
 import type { MenuProps } from "antd";
 import React from "react";
 
@@ -42,5 +38,3 @@ export const navElements: MenuProps["items"] = [
     ],
   },
 ];
-
-

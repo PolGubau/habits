@@ -3,13 +3,10 @@ import { LockOutlined, UserOutlined, MailOutlined } from "@ant-design/icons";
 import { Button, Form, Input } from "antd";
 import { Typography } from "antd";
 import styled from "styled-components";
-import axios from "axios";
-import PATH from "src/utils/path";
 import {
   manageCreateAccount,
   USER_CODES,
 } from "src/Services/ManageAccounts/CreateNewUserFunctions";
-import { type } from "os";
 
 const { Title } = Typography;
 

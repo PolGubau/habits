@@ -30,7 +30,7 @@ const LayoutPage = ({ children }: any) => {
           style={{ background: colorBgContainer }}
           collapsible
           collapsed={collapsed}
-          onCollapse={(value) => setCollapsed(value)}
+          onCollapse={(value: any) => setCollapsed(value)}
         >
           <Menu
             theme="light"
@@ -39,7 +39,7 @@ const LayoutPage = ({ children }: any) => {
             defaultSelectedKeys={["1"]}
             defaultOpenKeys={["2"]}
             items={navElements}
-            onClick={(e) => {
+            onClick={(e: any) => {
               router.push(`/${e.key}`);
               setLoading(true);
             }}

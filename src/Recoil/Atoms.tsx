@@ -22,7 +22,6 @@ export const foodState = atom({
   default: [],
 });
 
-
 export const yourCategoriessAtom = atom({
   key: "yourCategoriessAtom",
   default: [

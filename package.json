@@ -6,7 +6,7 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint --fix --ext .js,.jsx,.ts,.tsx .",
+    "lint": "next lint",
     "vercel": "vercel"
   },
   "dependencies": {
@@ -32,16 +32,14 @@
     "vercel": "^19.2.0"
   },
   "devDependencies": {
-    "@next/eslint-plugin-next": "^12.2.5",
     "@types/node": "18.0.6",
     "@types/pg": "8.6.5",
-    "@types/react": "^18.0.18",
+    "@types/react": "^18.0.27",
     "@types/react-dom": "^18.0.6",
     "@types/react-resizable": "^3.0.3",
     "@types/styled-components": "^5.1.26",
-    "@typescript-eslint/eslint-plugin": "^5.33.1",
-    "eslint": "^8.22.0",
-    "eslint-plugin-react": "^7.32.2",
+    "eslint": "8.33.0",
+    "eslint-config-next": "13.1.6",
     "typescript": "^4.7.4"
   }
 }

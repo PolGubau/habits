@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useCallback, useEffect } from "react";
 import { LockOutlined, UserOutlined } from "@ant-design/icons";
 import { Button, Checkbox, Form, Input, message } from "antd";
 import { Typography } from "antd";
@@ -29,12 +29,16 @@ const LoginForm = () => {
 
   const [messageApi, contextHolder] = message.useMessage();
 
-  const popUpMessage = (type: NoticeType = "success", message = "Message") => {
-    messageApi.open({
-      type: type,
-      content: message,
-    });
-  };
+  const popUpMessage = useCallback(
+    (type: NoticeType = "success", message = "Message") => {
+      messageApi.open({
+        type: type,
+        content: message,
+      });
+    },
+    [messageApi]
+  );
+
   const successLoading = () => {
     messageApi
       .open({
@@ -50,7 +54,7 @@ const LoginForm = () => {
       popUpMessage("warning", "You are already logged in");
       router.push(PATH.HOME);
     }
-  }, []);
+  }, [popUpMessage, router]);
   const onFinish = async (values: any) => {
     const loginState = await login(values);
 

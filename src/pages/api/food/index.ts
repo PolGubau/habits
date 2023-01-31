@@ -1,5 +1,3 @@
-//NEXT.js endpoint for getting all expenses for a user
-
 import type { NextApiRequest, NextApiResponse } from "next";
 import { conn } from "src/utils/database";
 
