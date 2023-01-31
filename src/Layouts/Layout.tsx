@@ -9,6 +9,7 @@ const { Content, Sider } = Layout;
 import { useRouter } from "next/router";
 import { useRecoilState } from "recoil";
 import { loadingAtom } from "src/Recoil/Atoms";
+
 const Style = styled.main`
   height: 100vh;
   display: flex;
