@@ -6,7 +6,6 @@ export const breakpoints = {
 export const fonts = {
   base: 'Intel,system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, Ubuntu, "Helvetica Neue", sans-serif',
 };
-
 export const colors = {
   blue: "#b6daff",
   red: "#ffb4b4",
