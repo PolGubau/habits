@@ -1,8 +1,6 @@
 //NEXT.js endpoint for getting all expenses for a user
 
 import type { NextApiRequest, NextApiResponse } from "next";
-import { IFood } from "src/components/Forms/Food/utils/initialState";
-import { IExpense } from "src/pages/expenses/utils/initialStates";
 import { conn } from "src/utils/database";
 
 export default async function handler(
