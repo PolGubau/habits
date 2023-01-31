@@ -1,9 +1,15 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { LockOutlined, UserOutlined } from "@ant-design/icons";
-import { Button, Checkbox, Form, Input } from "antd";
+import { Button, Checkbox, Form, Input, message } from "antd";
 import { Typography } from "antd";
 import styled from "styled-components";
 
+import {
+  login,
+  USER_CODES,
+} from "src/Services/ManageAccounts/CreateNewUserFunctions";
+import { useRouter } from "next/router";
+import PATH from "src/utils/path";
 const { Title } = Typography;
 
 const Styles = styled.main`
@@ -16,12 +22,62 @@ const Styles = styled.main`
   flex-wrap: wrap;
 `;
 
+export type NoticeType = "info" | "success" | "error" | "warning" | "loading";
+
 const LoginForm = () => {
-  const onFinish = (values: any) => {
-    console.log("Received values of form: ", values);
+  const router = useRouter();
+
+  const [messageApi, contextHolder] = message.useMessage();
+
+  const popUpMessage = (type: NoticeType = "success", message = "Message") => {
+    messageApi.open({
+      type: type,
+      content: message,
+    });
+  };
+  const successLoading = () => {
+    messageApi
+      .open({
+        type: "loading",
+        content: "Loading In..",
+        duration: 2.5,
+      })
+      .then(() => message.success("Loading finished", 2.5))
+      .then(() => message.info("Loading finished", 2.5));
+  };
+  useEffect(() => {
+    if (localStorage.getItem("token")) {
+      popUpMessage("warning", "You are already logged in");
+      router.push(PATH.HOME);
+    }
+  }, []);
+  const onFinish = async (values: any) => {
+    const loginState = await login(values);
+
+    switch (loginState) {
+      case USER_CODES.WRONG_PASSWORD:
+        popUpMessage("error", "Wrong password");
+
+        break;
+      case USER_CODES.USER_NOT_FOUND:
+        popUpMessage("error", "User not found");
+
+        break;
+      case USER_CODES.LOGED_IN:
+        successLoading();
+
+        router.push(PATH.HOME);
+
+        break;
+      default:
+        popUpMessage("error", "Something went wrong");
+
+        break;
+    }
   };
   return (
     <Styles>
+      {contextHolder}
       <Title>Login</Title>
 
       <Form
@@ -53,10 +109,6 @@ const LoginForm = () => {
           <Form.Item name="remember" valuePropName="checked" noStyle>
             <Checkbox>Remember me</Checkbox>
           </Form.Item>
-
-          <a className="login-form-forgot" href="">
-            Forgot password
-          </a>
         </Form.Item>
 
         <Form.Item>
@@ -67,7 +119,6 @@ const LoginForm = () => {
           >
             Log in
           </Button>
-          Or <a href="">register now!</a>
         </Form.Item>
       </Form>
     </Styles>

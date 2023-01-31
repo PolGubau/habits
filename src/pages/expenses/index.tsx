@@ -4,17 +4,25 @@ import { useRecoilState, useRecoilValue } from "recoil";
 import useExpensesFunctions from "./utils/useExpensesFunctions";
 import LayoutPage from "src/Layouts/Layout";
 import { expensesState, loadingAtom } from "src/Recoil/Atoms";
-import { message, Table, Tabs, TabsProps, Tag } from "antd";
+import { message, Switch, Table, Tabs, TabsProps, Tag, Tooltip } from "antd";
 import { NewExpenseForm } from "src/components/Forms/ExpensesForm/NewExpenseForm";
 import moment from "moment";
 import { ExpensesPageStyle } from "src/styles/PageStyles/ExpensesPageStyles";
 import LineChart from "./Screens/Charts";
+import React from "react";
+import PATH from "src/utils/path";
+import { useRouter } from "next/router";
 
 const Expenses = () => {
   const [, setLoading] = useRecoilState(loadingAtom);
+  const router = useRouter();
   useEffect(() => {
     setLoading(false);
+    if (!localStorage.getItem("user")) {
+      router.push(PATH.LOGIN);
+    }
   }, []);
+
   const [messageApi, contextHolder] = message.useMessage();
 
   const messageSuccess = () => {
@@ -24,6 +32,7 @@ const Expenses = () => {
     });
   };
   //
+  const [seeTotalPrice, setSeeTotalPrice] = React.useState(true);
 
   const f = useExpensesFunctions();
   const expenses = useRecoilValue(expensesState);
@@ -41,10 +50,17 @@ const Expenses = () => {
   };
 
   const dataSource = expenses?.map((expense: IExpense) => {
+    const formalizedPrice = () => {
+      const price = seeTotalPrice
+        ? expense.price * expense.amount
+        : expense.price;
+
+      return expense.isMinus ? price * -1 : price;
+    };
     return {
       key: expense.id,
       name: expense.name,
-      price: expense.isMinus ? -expense.price : expense.price,
+      price: formalizedPrice(),
       category: expense.category,
       shop: expense.shop,
       amount: expense.amount,
@@ -57,6 +73,7 @@ const Expenses = () => {
       title: "Name",
       dataIndex: "name",
       key: "name",
+      width: 200,
     },
 
     {
@@ -65,7 +82,7 @@ const Expenses = () => {
       key: "price",
       width: 100,
       sorter: (a: any, b: any) => a.price - b.price,
-      render: (price: any) => (
+      render: (price: number) => (
         <Tag color={price > 0 ? "green" : "red"}>{price / 100 + " €"}</Tag>
       ),
     },
@@ -73,11 +90,13 @@ const Expenses = () => {
       title: "Category",
       dataIndex: "category",
       key: "category",
+      width: 130,
     },
     {
       title: "Shop",
       dataIndex: "shop",
       key: "shop",
+      width: 130,
     },
     {
       title: "Amount",
@@ -99,6 +118,7 @@ const Expenses = () => {
     },
     {
       title: "Action",
+      width: 100,
       key: "action",
       render: () => (
         <Tag
@@ -143,7 +163,12 @@ const Expenses = () => {
       <ExpensesPageStyle>
         {contextHolder}
 
-        <Tabs defaultActiveKey="1" items={items} />
+        <Switch
+          defaultChecked
+          onChange={() => setSeeTotalPrice(!seeTotalPrice)}
+        />
+
+        <Tabs defaultActiveKey="1" items={items} style={{}} />
       </ExpensesPageStyle>
       <NewExpenseForm />
     </LayoutPage>

@@ -6,6 +6,7 @@ import {
   XAxis,
   YAxis,
   Tooltip,
+  Legend,
 } from "recharts";
 import { useRecoilValue } from "recoil";
 import { expensesState } from "src/Recoil/Atoms";
@@ -29,6 +30,7 @@ const LineChartScreen = () => {
       <CartesianGrid stroke="#ddd" />
       <XAxis dataKey="date" />
       <YAxis />
+      <Legend />
       <Tooltip />
     </LineChart>
   );

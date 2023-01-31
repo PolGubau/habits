@@ -1,10 +1,7 @@
-/* eslint-disable no-case-declarations */
 import type { NextApiRequest, NextApiResponse } from "next";
 import { conn } from "src/utils/database";
-// eslint-disable-next-line @typescript-eslint/no-var-requires
 const bcrypt = require("bcryptjs");
 
-// eslint-disable-next-line @typescript-eslint/space-before-function-paren
 export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse
@@ -26,9 +23,8 @@ export default async function handler(
       if (!body) {
         return res.status(400).json({ error: "Missing body" });
       }
-      const content = JSON.parse(body);
       try {
-        const { username, email, password } = content;
+        const { username, email, password } = body;
         const salt = bcrypt.genSaltSync(10);
         const hashPassword = bcrypt.hashSync(password, salt);
 

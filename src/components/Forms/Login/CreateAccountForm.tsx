@@ -1,8 +1,15 @@
 import React from "react";
 import { LockOutlined, UserOutlined, MailOutlined } from "@ant-design/icons";
-import { Button, Checkbox, Form, Input } from "antd";
+import { Button, Form, Input } from "antd";
 import { Typography } from "antd";
 import styled from "styled-components";
+import axios from "axios";
+import PATH from "src/utils/path";
+import {
+  manageCreateAccount,
+  USER_CODES,
+} from "src/Services/ManageAccounts/CreateNewUserFunctions";
+import { type } from "os";
 
 const { Title } = Typography;
 
@@ -17,8 +24,21 @@ const Styles = styled.main`
 `;
 
 const LoginForm = () => {
-  const onFinish = (values: any) => {
-    console.log("Received values of form: ", values);
+  type InputStates = undefined | "warning" | "error";
+  const [statusName, setStatusName] = React.useState<InputStates>(undefined);
+  const onFinish = async (values: any) => {
+    const state = await manageCreateAccount(values);
+    switch (state) {
+      case USER_CODES.USERNAME_TAKEN:
+        setStatusName("error");
+        break;
+      case USER_CODES.CREATED_SUCCESSFULLY:
+        alert("Account created");
+        break;
+      default:
+        alert("Something went wrong");
+        break;
+    }
   };
   return (
     <Styles>
@@ -36,6 +56,7 @@ const LoginForm = () => {
           rules={[{ required: true, message: "Please input your Username!" }]}
         >
           <Input
+            status={statusName}
             prefix={<UserOutlined className="site-form-item-icon" />}
             placeholder="Username"
           />

@@ -1,6 +1,8 @@
 import Link from "next/link";
-import React from "react";
+import React, { useEffect } from "react";
+import { useRecoilState } from "recoil";
 import LayoutPage from "src/Layouts/Layout";
+import { loadingAtom } from "src/Recoil/Atoms";
 import styled from "styled-components";
 const HeroStyled = styled.main`
   header {
@@ -38,6 +40,11 @@ const HeroStyled = styled.main`
   }
 `;
 const Hero = () => {
+  const [, setLoading] = useRecoilState(loadingAtom);
+  useEffect(() => {
+    setLoading(false);
+  }, []);
+
   return (
     <LayoutPage>
       <HeroStyled>

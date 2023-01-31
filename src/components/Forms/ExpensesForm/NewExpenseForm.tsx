@@ -1,10 +1,15 @@
+import { Button, Input, InputNumber, TimePicker } from "antd";
 import axios from "axios";
+import { UserOutlined } from "@ant-design/icons";
 import React from "react";
 import { useRecoilState } from "recoil";
+import { initialNewExpenseState } from "src/pages/expenses/utils/initialStates";
 import useExpensesFunctions from "src/pages/expenses/utils/useExpensesFunctions";
 import { newExpenseState } from "src/Recoil/Atoms";
 import { convertToEuro, currencies } from "src/utils/currency";
 import PATH from "src/utils/path";
+import { ExpensesFormStyle } from "./Styles";
+import dayjs from "dayjs";
 
 export const NewExpenseForm = () => {
   const f = useExpensesFunctions();
@@ -18,6 +23,7 @@ export const NewExpenseForm = () => {
   const floatToInteger = (e: any) => {
     setNewExpenses({ ...newExpenses, [e.target.name]: e.target.value * 100 });
   };
+  const [currency, setCurrency] = React.useState("EURO");
 
   const sendNewExpense = (e: any) => {
     e.preventDefault();
@@ -28,7 +34,7 @@ export const NewExpenseForm = () => {
       return {
         name,
         amount,
-        price: convertToEuro("EURO", price),
+        price: convertToEuro(currency, price),
         date,
         time,
         category,
@@ -40,17 +46,19 @@ export const NewExpenseForm = () => {
 
     axios.post(PATH.API.EXPENSES, product());
     f.getExpenses();
+    setNewExpenses(initialNewExpenseState);
   };
   return (
-    <form onSubmit={sendNewExpense}>
-      <input
-        placeholder="name"
-        type="text"
-        name="name"
-        onChange={modifyNewExpense}
+    <ExpensesFormStyle onSubmit={sendNewExpense}>
+      <Input
         required
+        name="name"
         value={newExpenses.name}
+        onChange={modifyNewExpense}
+        placeholder="Name of the poduct"
+        prefix={<UserOutlined />}
       />
+
       <input
         placeholder="category"
         type="text"
@@ -67,7 +75,7 @@ export const NewExpenseForm = () => {
         required
         value={newExpenses.shop}
       />
-      <div>
+      <div className="money">
         <select
           name="isMinus"
           value={isMinus}
@@ -93,26 +101,30 @@ export const NewExpenseForm = () => {
           placeholder={"price"}
           onChange={floatToInteger}
         />
-        <select>
+        <select
+          defaultValue={currency}
+          onChange={(e) => setCurrency(e.target.value)}
+        >
           {currencies.map((currency) => {
             return (
-              <option key={currency.value} value={currency.label}>
-                {currency.value}
+              <option key={currency.value} value={currency.value}>
+                {currency.label}
               </option>
             );
           })}
         </select>
       </div>
+
       <input
+        type={"number"}
+        min={1}
+        name="amount"
         required
-        type="number"
-        min="0.00"
-        max="10000.00"
-        step="0.01"
-        name={"amount"}
+        step={1}
+        max={10000}
         placeholder={"amount"}
-        value={newExpenses.amount}
-        onChange={modifyNewExpense}
+        defaultValue={newExpenses.amount}
+        onChange={(e: any) => modifyNewExpense(e)}
       />
       <input
         required
@@ -127,7 +139,9 @@ export const NewExpenseForm = () => {
         name={"time"}
         onChange={modifyNewExpense}
       />
-      <input type={"submit"} value="enviar" />
-    </form>
+      <Button type="primary" onClick={sendNewExpense}>
+        Enviar
+      </Button>
+    </ExpensesFormStyle>
   );
 };

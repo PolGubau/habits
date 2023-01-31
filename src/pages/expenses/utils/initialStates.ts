@@ -3,7 +3,7 @@ import { actualDate, actualHourMinutes } from "src/utils/date";
 export const initialNewExpenseState = {
   name: "",
   price: 100,
-  amount: 0,
+  amount: 1,
   date: actualDate,
   time: actualHourMinutes,
   category: "",
