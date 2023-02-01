@@ -35,7 +35,7 @@ const LoginPage: React.FC = () => {
   const [, setLoading] = useRecoilState(loadingAtom);
   useEffect(() => {
     setLoading(false);
-  }, []);
+  }, [setLoading]);
   return (
     <Styles>
       <LoginForm />

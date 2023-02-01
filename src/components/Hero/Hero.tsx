@@ -43,7 +43,7 @@ const Hero = () => {
   const [, setLoading] = useRecoilState(loadingAtom);
   useEffect(() => {
     setLoading(false);
-  }, []);
+  }, [setLoading]);
 
   return (
     <LayoutPage>
