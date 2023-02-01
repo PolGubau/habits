@@ -1,14 +1,14 @@
 import { useEffect } from "react";
-import { IExpense } from "../../utils/initialStates";
+import { IExpense } from "../utils/initialStates";
 import { useRecoilState, useRecoilValue } from "recoil";
-import useExpensesFunctions from "../../hooks/useExpensesFunctions";
+import useExpensesFunctions from "../hooks/useExpensesFunctions";
 import LayoutPage from "src/Layouts/Layout";
 import { expensesState, loadingAtom } from "src/Recoil/Atoms";
 import { message, Switch, Table, Tabs, TabsProps, Tag } from "antd";
 import { NewExpenseForm } from "src/components/Forms/ExpensesForm/NewExpenseForm";
 import moment from "moment";
 import { ExpensesPageStyle } from "src/styles/PageStyles/ExpensesPageStyles";
-import LineChart from "../../components/Screens/Charts";
+import LineChart from "../components/Screens/Charts";
 import React from "react";
 import PATH from "src/utils/path";
 import { useRouter } from "next/router";
