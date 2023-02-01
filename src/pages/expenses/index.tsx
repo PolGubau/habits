@@ -15,13 +15,17 @@ import { useRouter } from "next/router";
 
 const Expenses = () => {
   const [, setLoading] = useRecoilState(loadingAtom);
+  const f = useExpensesFunctions();
+
   const router = useRouter();
   useEffect(() => {
+    f.getExpenses();
+
     setLoading(false);
     if (!localStorage.getItem("user")) {
       router.push(PATH.LOGIN);
     }
-  }, []);
+  }, [f, router, setLoading]);
 
   const [messageApi, contextHolder] = message.useMessage();
 
@@ -34,13 +38,8 @@ const Expenses = () => {
   //
   const [seeTotalPrice, setSeeTotalPrice] = React.useState(true);
 
-  const f = useExpensesFunctions();
   const expenses = useRecoilValue(expensesState);
   console.log(expenses);
-
-  useEffect(() => {
-    f.getExpenses();
-  }, []);
 
   const dateFormater = (date: string) => {
     return new Date(date).getTime();

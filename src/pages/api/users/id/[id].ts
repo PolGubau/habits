@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/space-before-function-paren */
 import type { NextApiRequest, NextApiResponse } from "next";
 import { conn } from "src/utils/database";
 
