@@ -1,5 +1,5 @@
 import { atom } from "recoil";
-import { initialNewExpenseState } from "src/pages/expenses/utils/initialStates";
+import { initialNewExpenseState } from "src/utils/initialStates";
 import { initialValueShops } from "./initialValues/InitialValueShops";
 
 export const loadingAtom = atom({
