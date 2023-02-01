@@ -9,8 +9,6 @@ import { newExpenseState } from "src/Recoil/Atoms";
 import { convertToEuro, currencies } from "src/utils/currency";
 import PATH from "src/utils/path";
 import { ExpensesFormStyle } from "./Styles";
-import dayjs from "dayjs";
-
 export const NewExpenseForm = () => {
   const f = useExpensesFunctions();
 
