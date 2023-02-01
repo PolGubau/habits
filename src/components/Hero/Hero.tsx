@@ -54,21 +54,6 @@ const Hero = () => {
               <h2>Expenses</h2>
             </article>
           </Link>
-          <Link href={"./food"}>
-            <article>
-              <h2>Food</h2>
-            </article>
-          </Link>
-          <Link href={"./food"}>
-            <article>
-              <h2>Duchas</h2>
-            </article>
-          </Link>
-          <Link href={"./food"}>
-            <article>
-              <h2>Sueño</h2>
-            </article>
-          </Link>
         </section>
       </HeroStyled>
     </LayoutPage>
