@@ -1,7 +1,7 @@
 const DOMINIO =
   process.env.NODE_ENV === "development"
     ? "http://localhost:3000"
-    : "https://askaquest.netlify.app";
+    : "https://habitss.vercel.app";
 
 const PATH = {
   HOME: `${DOMINIO}`,
