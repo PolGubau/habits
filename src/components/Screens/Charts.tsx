@@ -13,7 +13,6 @@ import { expensesState } from "src/Recoil/Atoms";
 
 const LineChartScreen = () => {
   const data = useRecoilValue(expensesState);
-
   const [width, setWidth] = React.useState(0);
 
   React.useEffect(() => {
