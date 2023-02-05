@@ -8,7 +8,6 @@ export const categories = [
       { label: "Fish", value: "Fish" },
       { label: "Dairy", value: "Dairy" },
       { label: "Eggs", value: "Eggs" },
-
       { label: "Bread", value: "Bread" },
       { label: "Grains", value: "Grains" },
       { label: "Sweets", value: "Sweets" },
@@ -171,7 +170,6 @@ export const shops = [
   { label: "ATM", value: "ATM" },
   { label: "Bike", value: "Bike" },
   { label: "Boat", value: "Boat" },
-  { label: "Taxi", value: "Taxi" },
 
   // Health
   { label: "Doctor", value: "Doctor" },
