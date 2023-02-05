@@ -1,8 +1,6 @@
-import React, { useEffect } from "react";
-import { useRecoilState } from "recoil";
+import React from "react";
 import CreateAccountForm from "src/components/Forms/Login/CreateAccountForm";
 import LoginForm from "src/components/Forms/Login/LoginForm";
-import { loadingAtom } from "src/Recoil/Atoms";
 
 import styled from "styled-components";
 
@@ -32,10 +30,6 @@ const Styles = styled.main`
 `;
 
 const LoginPage: React.FC = () => {
-  const [, setLoading] = useRecoilState(loadingAtom);
-  useEffect(() => {
-    setLoading(false);
-  }, [setLoading]);
   return (
     <Styles>
       <LoginForm />
