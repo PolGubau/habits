@@ -1,21 +1,36 @@
-import { Button, Input } from "antd";
+import {
+  Button,
+  DatePicker,
+  Input,
+  InputNumber,
+  message,
+  Select,
+  TimePicker,
+} from "antd";
 import axios from "axios";
-import { UserOutlined } from "@ant-design/icons";
-import React from "react";
+import { UserOutlined, FieldNumberOutlined } from "@ant-design/icons";
+import React, { useCallback, useEffect } from "react";
 import { useRecoilState } from "recoil";
 import { initialNewExpenseState } from "src/utils/initialStates";
 import useExpensesFunctions from "src/hooks/useExpensesFunctions";
-import { newExpenseState } from "src/Recoil/Atoms";
+import { lastExpenseState, newExpenseState } from "src/Recoil/Atoms";
 import { convertToEuro, currencies } from "src/utils/currency";
 import PATH from "src/utils/path";
 import { ExpensesFormStyle } from "./Styles";
+import { useRouter } from "next/router";
+import dayjs from "dayjs";
+import { categories, shops } from "./valuesForForm";
+import { NoticeType } from "../Login/LoginForm";
 
 export const NewExpenseForm = () => {
+  const router = useRouter();
   const f = useExpensesFunctions();
 
   const [newExpenses, setNewExpenses] = useRecoilState(newExpenseState);
-  const [isMinus, setIsMinus] = React.useState(1);
+  const [lastExpenses, setLastExpenses] = useRecoilState(lastExpenseState);
+  const [isMinus, setIsMinus] = React.useState(true);
 
+  //
   const modifyNewExpense = (e: { target: { name: string; value: string } }) => {
     setNewExpenses({ ...newExpenses, [e.target.name]: e.target.value });
   };
@@ -27,26 +42,74 @@ export const NewExpenseForm = () => {
   const sendNewExpense = (e: any) => {
     e.preventDefault();
 
+    setLastExpenses(newExpenses);
+    const userUnparsed = localStorage.getItem("user");
+    if (!userUnparsed) {
+      router.push(PATH.LOGIN);
+    }
+    const user = JSON.parse(userUnparsed || "");
+    const { id } = user;
+
+    const checkValid = () => {
+      if (newExpenses.name === "") {
+        message.error("Introduce un nombre");
+        return false;
+      }
+      if (newExpenses.amount === 0) {
+        message.error("Introduce una cantidad");
+        return false;
+      }
+      if (newExpenses.price === 0) {
+        message.error("Introduce un precio");
+        return false;
+      }
+      if (newExpenses.date === "") {
+        message.error("Introduce una fecha");
+        return false;
+      }
+      if (newExpenses.time === "") {
+        message.error("Introduce una hora");
+        return false;
+      }
+      if (newExpenses.category === "") {
+        message.error("Introduce una categoría");
+        return false;
+      }
+      if (newExpenses.shop === "") {
+        message.error("Introduce una tienda");
+        return false;
+      }
+      return true;
+    };
     const product = () => {
       const { name, amount, price, date, time, category, shop, isMinus } =
         newExpenses;
       return {
         name,
         amount,
-        price: convertToEuro(currency, price),
+        price,
+        currency,
         date,
         time,
         category,
         shop,
         isMinus,
+        userID: id,
       };
     };
-    console.log(product());
-
-    axios.post(PATH.API.EXPENSES, product());
+    checkValid() && axios.post(PATH.API.EXPENSES, product());
     f.getExpenses();
-    setNewExpenses(initialNewExpenseState);
+    setNewExpenses({
+      ...initialNewExpenseState,
+      date: dayjs().format("YYYY-MM-DD"),
+      time: dayjs().format("HH:mm:ss"),
+      shop: lastExpenses.shop,
+      category: lastExpenses.category,
+      currency: lastExpenses.currency,
+    });
   };
+
+  const dateFormat = "DD/MM/YYYY";
 
   return (
     <ExpensesFormStyle onSubmit={sendNewExpense}>
@@ -54,42 +117,52 @@ export const NewExpenseForm = () => {
         required
         name="name"
         value={newExpenses.name}
-        onChange={modifyNewExpense}
+        onChange={(e) => modifyNewExpense(e)}
         placeholder="Name of the poduct"
         prefix={<UserOutlined />}
       />
 
-      <input
-        placeholder="category"
-        type="text"
-        name="category"
-        onChange={modifyNewExpense}
-        required
+      <Select
+        showSearch
+        style={{ minWidth: 150 }}
+        options={categories}
         value={newExpenses.category}
+        placeholder="Category"
+        onChange={(e) =>
+          setNewExpenses({
+            ...newExpenses,
+            category: e as string,
+          })
+        }
       />
-      <input
-        placeholder="shop"
-        type="text"
-        name="shop"
-        onChange={modifyNewExpense}
-        required
+      <Select
+        showSearch
+        style={{ minWidth: 150 }}
+        options={shops}
         value={newExpenses.shop}
+        placeholder="Shop"
+        onChange={(e) =>
+          setNewExpenses({
+            ...newExpenses,
+            shop: e as string,
+          })
+        }
       />
       <div className="money">
-        <select
-          name="isMinus"
-          value={isMinus}
+        <Select
           onChange={() => {
-            setIsMinus(isMinus === 1 ? 0 : 1);
+            setIsMinus(!isMinus);
             setNewExpenses({
               ...newExpenses,
-              isMinus: isMinus === 1 ? false : true,
+              isMinus: !isMinus,
             });
           }}
-        >
-          <option value={1}>-</option>
-          <option value={0}>+</option>
-        </select>
+          options={[
+            { label: "-", value: true },
+            { label: "+", value: false },
+          ]}
+          value={isMinus}
+        />
 
         <input
           required
@@ -98,6 +171,7 @@ export const NewExpenseForm = () => {
           max="10000.00"
           step="0.01"
           name={"price"}
+          value={newExpenses.price / 100}
           placeholder={"price"}
           onChange={floatToInteger}
         />
@@ -116,29 +190,23 @@ export const NewExpenseForm = () => {
       </div>
 
       <input
-        type={"number"}
-        min={1}
-        name="amount"
-        required
-        step={1}
-        max={10000}
+        type="number"
+        min="1"
+        max="100"
+        step="1"
+        name={"amount"}
+        value={newExpenses.amount}
         placeholder={"amount"}
-        defaultValue={newExpenses.amount}
-        onChange={(e: any) => modifyNewExpense(e)}
+        onChange={(e) => modifyNewExpense(e)}
       />
-      <input
-        required
-        type={"date"}
-        name={"date"}
-        value={newExpenses.date}
-        onChange={modifyNewExpense}
-      />
-      <input
-        type={"time"}
-        value={newExpenses.time}
+      <DatePicker defaultValue={dayjs(newExpenses.date, dateFormat)} />
+
+      <TimePicker
         name={"time"}
-        onChange={modifyNewExpense}
+        value={dayjs(newExpenses.time, "HH:mm:ss")}
+        onChange={(e) => setNewExpenses({ ...newExpenses, time: e as any })}
       />
+
       <Button type="primary" onClick={sendNewExpense}>
         Enviar
       </Button>

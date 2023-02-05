@@ -8,14 +8,12 @@ import { QuestionCircleOutlined } from "@ant-design/icons";
 const { Content, Sider } = Layout;
 import { useRouter } from "next/router";
 import { useRecoilState } from "recoil";
-import { loadingAtom } from "src/Recoil/Atoms";
 const Style = styled.main`
   height: 100vh;
   display: flex;
 `;
 
 const LayoutPage = ({ children }: any) => {
-  const [, setLoading] = useRecoilState(loadingAtom);
   const {
     token: { colorBgContainer },
   } = theme.useToken();
@@ -41,7 +39,6 @@ const LayoutPage = ({ children }: any) => {
             items={navElements}
             onClick={(e: any) => {
               router.push(`/${e.key}`);
-              setLoading(true);
             }}
           />
         </Sider>

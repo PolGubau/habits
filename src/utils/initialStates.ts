@@ -6,9 +6,10 @@ export const initialNewExpenseState = {
   amount: 1,
   date: actualDate,
   time: actualHourMinutes,
-  category: "",
+  category: "Fruit",
   isMinus: true,
-  shop: "",
+  shop: "Mercadona",
+  currency: "EURO",
 };
 
 export interface IExpense {

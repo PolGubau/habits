@@ -1,4 +1,3 @@
-
 import type { NextApiRequest, NextApiResponse } from "next";
 import { conn } from "src/utils/database";
 
@@ -6,13 +5,14 @@ export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse
 ) {
-  const { method, body } = req;
+  const { method, body, query } = req;
+  const userID = query.userID;
 
   switch (method) {
     case "GET":
       try {
-        const query = 'SELECT * FROM "public"."expenses" WHERE "userID" = 1;';
-        const response = await conn.query(query);
+        const query = `SELECT * FROM "public"."expenses" WHERE "userID" = $1;`;
+        const response = await conn.query(query, [userID]);
         return res.json(response.rows);
       } catch (error) {
         return res.status(400).json({ error });
@@ -20,14 +20,23 @@ export default async function handler(
 
     case "POST":
       try {
-        const { name, amount, price, date, time, category, shop, isMinus } =
-          body;
+        const {
+          name,
+          amount,
+          price,
+          date,
+          time,
+          category,
+          shop,
+          isMinus,
+          userID,
+          currency,
+        } = body;
 
         const dateTime = new Date(`${date} ${time}`);
-        const userID = 1;
 
         const query =
-          'INSERT INTO "public"."expenses" ("name", "amount","price", "date","userID", "category", "shop","isMinus" ) VALUES ($1, $2, $3, $4, $5, $6, $7, $8) RETURNING *;';
+          'INSERT INTO "public"."expenses" ("name", "amount","price", "date","userID", "category", "shop","isMinus","currency" ) VALUES ($1, $2, $3, $4, $5, $6, $7, $8,$9) RETURNING *;';
 
         const response = await conn.query(query, [
           name,
@@ -38,6 +47,7 @@ export default async function handler(
           category,
           shop,
           isMinus,
+          currency,
         ]);
         return res.json(response.rows);
       } catch (error) {

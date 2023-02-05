@@ -9,13 +9,18 @@ const useExpensesFunctions = () => {
   return {
     getExpenses: async () => {
       try {
-        const res = await axios.get(PATH.API.EXPENSES);
-
+        const user = JSON.parse(localStorage.getItem("user") || "");
+        const { id } = user;
+        const userID = id;
+        const res = await axios.get(`${PATH.API.EXPENSES}/${userID}`);
         setExpenses(res.data);
       } catch (error) {
         console.log(error);
       }
     },
+
+    //
+
     getExpenseByID: async (id: number) => {
       try {
         const res = await axios.get(`${PATH.API.EXPENSES}/${id}`);
@@ -24,6 +29,9 @@ const useExpensesFunctions = () => {
         return error;
       }
     },
+
+    //
+
     deleteExpense: async (id: number) => {
       try {
         await axios.delete(`${PATH.API.EXPENSES}/${id}`);

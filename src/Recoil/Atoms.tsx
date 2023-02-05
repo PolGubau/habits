@@ -2,11 +2,6 @@ import { atom } from "recoil";
 import { initialNewExpenseState } from "src/utils/initialStates";
 import { initialValueShops } from "./initialValues/InitialValueShops";
 
-export const loadingAtom = atom({
-  key: "loadingStateAtom",
-  default: false,
-});
-
 export const expensesState = atom({
   key: "expensesState",
   default: [],
@@ -15,6 +10,11 @@ export const newExpenseState = atom({
   key: "expenseNewState",
   default: initialNewExpenseState,
 });
+export const lastExpenseState = atom({
+  key: "expenseLastAtom",
+  default: initialNewExpenseState,
+});
+
 //
 //
 export const foodState = atom({

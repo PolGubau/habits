@@ -1,13 +1,13 @@
 export const currencies = [
-  { label: "€", value: "Euro" },
-  { label: "SEK", value: "Sek" },
-  { label: "$", value: "Dollar" },
+  { label: "€", value: "EURO" },
+  { label: "SEK", value: "SEK" },
+  { label: "$", value: "DOLLAR" },
 ];
 export const convertToEuro = (currency: string, price: number) => {
   switch (currency) {
-    case "Sek":
+    case "SEK":
       return price * 0.089;
-    case "Dollar":
+    case "DOLLAR":
       return price * 0.92;
     case "Pound":
       return price * 1.14;
@@ -21,6 +21,7 @@ export const convertToEuro = (currency: string, price: number) => {
       return price * 0.093;
 
     default:
+      // euro or other
       return price;
   }
 };

@@ -1,31 +1,32 @@
-import { useEffect } from "react";
+import React, { useEffect } from "react";
 import { IExpense } from "../utils/initialStates";
-import { useRecoilState, useRecoilValue } from "recoil";
+import { useRecoilValue } from "recoil";
 import useExpensesFunctions from "../hooks/useExpensesFunctions";
 import LayoutPage from "src/Layouts/Layout";
-import { expensesState, loadingAtom } from "src/Recoil/Atoms";
+import { expensesState } from "src/Recoil/Atoms";
 import { message, Switch, Table, Tabs, TabsProps, Tag } from "antd";
 import { NewExpenseForm } from "src/components/Forms/ExpensesForm/NewExpenseForm";
 import moment from "moment";
 import { ExpensesPageStyle } from "src/styles/PageStyles/ExpensesPageStyles";
 import LineChart from "../components/Screens/Charts";
-import React from "react";
+import { RiDeleteBin7Line } from "react-icons/ri";
 import PATH from "src/utils/path";
 import { useRouter } from "next/router";
 
 const Expenses = () => {
-  const [, setLoading] = useRecoilState(loadingAtom);
   const f = useExpensesFunctions();
-
+  const [seeTotalPrice, setSeeTotalPrice] = React.useState(true);
   const router = useRouter();
-  useEffect(() => {
-    f.getExpenses();
+  const expenses = useRecoilValue(expensesState);
 
-    setLoading(false);
+  useEffect(() => {
+    if (expenses.length === 0) {
+      f.getExpenses();
+    }
     if (!localStorage.getItem("user")) {
       router.push(PATH.LOGIN);
     }
-  }, [f, router, setLoading]);
+  }, [expenses.length, f, router]);
 
   const [messageApi, contextHolder] = message.useMessage();
 
@@ -35,11 +36,6 @@ const Expenses = () => {
       content: "Your expense has been deleted",
     });
   };
-  //
-  const [seeTotalPrice, setSeeTotalPrice] = React.useState(true);
-
-  const expenses = useRecoilValue(expensesState);
-  console.log(expenses);
 
   const dateFormater = (date: string) => {
     return new Date(date).getTime();
@@ -116,8 +112,8 @@ const Expenses = () => {
       defaultSortOrder: "descend",
     },
     {
-      title: "Action",
-      width: 100,
+      title: "",
+      width: 50,
       key: "action",
       render: () => (
         <Tag
@@ -132,7 +128,7 @@ const Expenses = () => {
             messageSuccess();
           }}
         >
-          Delete
+          <RiDeleteBin7Line />
         </Tag>
       ),
     },
@@ -157,6 +153,7 @@ const Expenses = () => {
       children: <LineChart />,
     },
   ];
+
   return (
     <LayoutPage>
       <ExpensesPageStyle>
@@ -167,7 +164,7 @@ const Expenses = () => {
           onChange={() => setSeeTotalPrice(!seeTotalPrice)}
         />
 
-        <Tabs defaultActiveKey="1" items={items} style={{}} />
+        <Tabs defaultActiveKey="1" items={items} />
       </ExpensesPageStyle>
       <NewExpenseForm />
     </LayoutPage>
