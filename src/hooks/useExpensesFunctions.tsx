@@ -8,7 +8,6 @@ const useExpensesFunctions = () => {
 
   return {
     getExpenses: async () => {
-      console.log("getExpenses");
       try {
         const user = JSON.parse(localStorage.getItem("user") || "");
         const { id } = user;
