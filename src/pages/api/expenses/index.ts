@@ -6,13 +6,15 @@ export default async function handler(
   res: NextApiResponse
 ) {
   const { method, body, query } = req;
-  const userID = query.userID;
+  const { userID } = query;
 
   switch (method) {
     case "GET":
       try {
         const query = `SELECT * FROM "public"."expenses" WHERE "userID" = $1;`;
         const response = await conn.query(query, [userID]);
+
+        //
         return res.json(response.rows);
       } catch (error) {
         return res.status(400).json({ error });

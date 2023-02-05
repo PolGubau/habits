@@ -18,17 +18,17 @@ const Expenses = () => {
   const [seeTotalPrice, setSeeTotalPrice] = React.useState(true);
   const router = useRouter();
   const expenses = useRecoilValue(expensesState);
+  const [messageApi, contextHolder] = message.useMessage();
 
   useEffect(() => {
+    if (!localStorage.getItem("user")) {
+      router.push(PATH.LOGIN);
+      return;
+    }
     if (expenses.length === 0) {
       f.getExpenses();
     }
-    if (!localStorage.getItem("user")) {
-      router.push(PATH.LOGIN);
-    }
   }, [expenses.length, f, router]);
-
-  const [messageApi, contextHolder] = message.useMessage();
 
   const messageSuccess = () => {
     messageApi.open({

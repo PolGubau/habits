@@ -12,7 +12,9 @@ const useExpensesFunctions = () => {
         const user = JSON.parse(localStorage.getItem("user") || "");
         const { id } = user;
         const userID = id;
-        const res = await axios.get(`${PATH.API.EXPENSES}/${userID}`);
+        const res = await axios.get(`${PATH.API.EXPENSES}`, {
+          params: { userID },
+        });
         setExpenses(res.data);
       } catch (error) {
         console.log(error);
