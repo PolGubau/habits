@@ -111,9 +111,7 @@ export const shops = [
   { label: "Prisma", value: "Prisma" },
   { label: "Sale", value: "Sale" },
   { label: "K-Market", value: "K-Market" },
-
   { label: "Hemköp", value: "Hemköp" },
-  { label: "Lindex", value: "Lindex" },
   { label: "H&M", value: "H&M" },
   // restaurants
   { label: "McDonalds", value: "McDonalds" },
