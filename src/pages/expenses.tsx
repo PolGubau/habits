@@ -12,6 +12,7 @@ import LineChart from "../components/Screens/Charts";
 import { RiDeleteBin7Line } from "react-icons/ri";
 import PATH from "src/utils/path";
 import { useRouter } from "next/router";
+import { convertToEuro } from "src/utils/currency";
 
 const Expenses = () => {
   const f = useExpensesFunctions();
@@ -46,9 +47,8 @@ const Expenses = () => {
 
   const dataSource = expenses?.map((expense: IExpense) => {
     const formalizedPrice = () => {
-      const price = seeTotalPrice
-        ? expense.price * expense.amount
-        : expense.price;
+      const priceInEuro = convertToEuro(expense.currency, expense.price);
+      const price = seeTotalPrice ? priceInEuro * expense.amount : priceInEuro;
 
       return expense.isMinus ? price * -1 : price;
     };

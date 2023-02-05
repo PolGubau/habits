@@ -1,10 +1,10 @@
 import { atom } from "recoil";
-import { initialNewExpenseState } from "src/utils/initialStates";
+import { IExpense, initialNewExpenseState } from "src/utils/initialStates";
 import { initialValueShops } from "./initialValues/InitialValueShops";
 
 export const expensesState = atom({
   key: "expensesState",
-  default: [],
+  default: [] as IExpense[],
 });
 export const newExpenseState = atom({
   key: "expenseNewState",

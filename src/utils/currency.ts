@@ -6,19 +6,19 @@ export const currencies = [
 export const convertToEuro = (currency: string, price: number) => {
   switch (currency) {
     case "SEK":
-      return price * 0.089;
+      return Math.round(price * 0.089);
     case "DOLLAR":
-      return price * 0.92;
+      return Math.round(price * 0.92);
     case "Pound":
-      return price * 1.14;
+      return Math.round(price * 1.14);
     case "Yen":
-      return price * 0.0071;
+      return Math.round(price * 0.0071);
     case "Yuan":
-      return price * 0.14;
+      return Math.round(price * 0.14);
     case "DKK":
-      return price * 0.13;
+      return Math.round(price * 0.13);
     case "NOK":
-      return price * 0.093;
+      return Math.round(price * 0.093);
 
     default:
       // euro or other

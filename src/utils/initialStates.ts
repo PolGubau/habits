@@ -22,5 +22,6 @@ export interface IExpense {
   category: string;
   shop: string;
   isMinus: boolean;
+  currency: string;
   userID: number;
 }
