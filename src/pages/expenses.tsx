@@ -13,6 +13,7 @@ import { RiDeleteBin7Line } from "react-icons/ri";
 import PATH from "src/utils/path";
 import { useRouter } from "next/router";
 import { convertToEuro } from "src/utils/currency";
+import ExpensesEstadistics from "src/components/Stadistics/Expenses/ExpensesEstadistics";
 
 const Expenses = () => {
   const f = useExpensesFunctions();
@@ -68,36 +69,31 @@ const Expenses = () => {
       title: "Name",
       dataIndex: "name",
       key: "name",
-      width: 200,
     },
 
     {
       title: "Price",
       dataIndex: "price",
       key: "price",
-      width: 100,
       sorter: (a: any, b: any) => a.price - b.price,
       render: (price: number) => (
-        <Tag color={price > 0 ? "green" : "red"}>{price / 100 + " €"}</Tag>
+        <Tag color={price > 0 ? "green" : "red"}>{price + " €"}</Tag>
       ),
     },
     {
       title: "Category",
       dataIndex: "category",
       key: "category",
-      width: 130,
     },
     {
       title: "Shop",
       dataIndex: "shop",
       key: "shop",
-      width: 130,
     },
     {
       title: "Amount",
       dataIndex: "amount",
       key: "amount",
-      width: 100,
 
       sorter: (a: any, b: any) => a.amount - b.amount,
     },
@@ -105,7 +101,6 @@ const Expenses = () => {
       title: "Date",
       dataIndex: "date",
       key: "date",
-      width: 200,
       sorter: (a: any, b: any) =>
         new Date(a.date).getTime() - new Date(b.date).getTime(),
       render: (date: any) => moment(date).format("DD/MM/YYYY HH:mm"),
@@ -113,7 +108,6 @@ const Expenses = () => {
     },
     {
       title: "",
-      width: 50,
       key: "action",
       render: () => (
         <Tag
@@ -159,13 +153,14 @@ const Expenses = () => {
       <ExpensesPageStyle>
         {contextHolder}
 
-        <Switch
+        {/* <Switch
           defaultChecked
           onChange={() => setSeeTotalPrice(!seeTotalPrice)}
-        />
+        /> */}
 
         <Tabs defaultActiveKey="1" items={items} />
       </ExpensesPageStyle>
+      <ExpensesEstadistics />
       <NewExpenseForm />
     </LayoutPage>
   );

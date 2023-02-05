@@ -16,19 +16,24 @@ export const ExpensesFormStyle = styled.form`
     justify-content: center;
     align-items: stretch;
     input {
-      padding: 8px;
-
-      border: 1px solid #ccc;
+      border-radius: 0;
+      border: none;
+      border-bottom: 1px solid #d9d9d9;
+      border-top: 1px solid #d9d9d9;
     }
-    select {
-      border: 1px solid #ccc;
-      :first-of-type {
-        border-radius: 6px 0 0 6px;
-        border-right: none;
+    div {
+      :first-child {
+        div {
+          background-color: #ebebeb;
+          border-radius: 5px 0 0 5px;
+        }
       }
-      :last-of-type {
-        border-radius: 0 6px 6px 0;
-        border-left: none;
+      :last-child {
+        div {
+          background-color: #ebebeb;
+
+          border-radius: 0 5px 5px 0;
+        }
       }
     }
   }

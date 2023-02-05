@@ -1,5 +1,6 @@
 import type { NextApiRequest, NextApiResponse } from "next";
 import { conn } from "src/utils/database";
+import { IExpense } from "src/utils/initialStates";
 
 export default async function handler(
   req: NextApiRequest,
@@ -15,7 +16,14 @@ export default async function handler(
         const response = await conn.query(query, [userID]);
 
         //
-        return res.json(response.rows);
+        const expenses = response.rows;
+
+        const expensesPriceWell = expenses.map((expense: IExpense) => {
+          const { price } = expense;
+          const newPrice = price / 100;
+          return { ...expense, price: newPrice };
+        });
+        return res.json(expensesPriceWell);
       } catch (error) {
         return res.status(400).json({ error });
       }

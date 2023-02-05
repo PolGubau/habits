@@ -30,7 +30,6 @@ export const NewExpenseForm = () => {
 
   const [newExpenses, setNewExpenses] = useRecoilState(newExpenseState);
   const [lastExpenses, setLastExpenses] = useRecoilState(lastExpenseState);
-  const [isMinus, setIsMinus] = React.useState(true);
   const [allShops, setShops] = useState(shops);
   const [name, setName] = useState("");
   //
@@ -55,7 +54,7 @@ export const NewExpenseForm = () => {
     setNewExpenses({ ...newExpenses, [e.target.name]: e.target.value });
   };
   const floatToInteger = (e: any) => {
-    setNewExpenses({ ...newExpenses, [e.target.name]: e.target.value * 100 });
+    setNewExpenses({ ...newExpenses, [e.target.name]: e.target.value });
   };
   const [currency, setCurrency] = React.useState("EURO");
 
@@ -107,7 +106,7 @@ export const NewExpenseForm = () => {
       return {
         name,
         amount,
-        price,
+        price: price * 100,
         currency,
         date,
         time,
@@ -143,8 +142,8 @@ export const NewExpenseForm = () => {
       />
 
       <Select
+        dropdownMatchSelectWidth={false}
         showSearch
-        style={{ minWidth: 150 }}
         options={categories}
         value={newExpenses.category}
         placeholder="Category"
@@ -156,8 +155,8 @@ export const NewExpenseForm = () => {
         }
       />
       <Select
+        dropdownMatchSelectWidth={false}
         showSearch
-        style={{ minWidth: 200 }}
         value={newExpenses.shop}
         placeholder="Shop"
         onChange={(e) =>
@@ -166,14 +165,18 @@ export const NewExpenseForm = () => {
             shop: e as string,
           })
         }
+        options={allShops}
         dropdownRender={(menu) => (
           <>
             {menu}
             <Divider style={{ margin: "8px 0" }} />
             <Space style={{ padding: "0 8px 4px" }}>
               <Input
+                autoComplete="off"
+                placeholder="Add a shop"
                 name="shop"
                 ref={inputRef}
+                value={name}
                 onChange={(e) => {
                   setName(e.target.value);
                 }}
@@ -186,22 +189,24 @@ export const NewExpenseForm = () => {
             </Space>
           </>
         )}
-        options={allShops}
       />
       <div className="money">
         <Select
-          onChange={() => {
-            setIsMinus(!isMinus);
+          dropdownMatchSelectWidth={false}
+          className="minusSelect"
+          onChange={(e) => {
+            console.log(newExpenses.isMinus);
+
             setNewExpenses({
               ...newExpenses,
-              isMinus: !isMinus,
+              isMinus: e as boolean,
             });
           }}
           options={[
-            { label: "-", value: true },
-            { label: "+", value: false },
+            { label: "-", value: false },
+            { label: "+", value: true },
           ]}
-          value={isMinus}
+          value={newExpenses.isMinus}
         />
 
         <input
@@ -211,22 +216,23 @@ export const NewExpenseForm = () => {
           max="10000.00"
           step="0.01"
           name={"price"}
-          value={newExpenses.price / 100}
+          value={newExpenses.price}
           placeholder={"price"}
           onChange={floatToInteger}
         />
-        <select
-          defaultValue={currency}
-          onChange={(e) => setCurrency(e.target.value)}
-        >
-          {currencies.map((currency) => {
-            return (
-              <option key={currency.value} value={currency.value}>
-                {currency.label}
-              </option>
-            );
-          })}
-        </select>
+
+        <Select
+          dropdownMatchSelectWidth={false}
+          onChange={() => {
+            setCurrency(currency);
+            setNewExpenses({
+              ...newExpenses,
+              currency: currency,
+            });
+          }}
+          options={currencies}
+          value={currency}
+        />
       </div>
 
       <input
