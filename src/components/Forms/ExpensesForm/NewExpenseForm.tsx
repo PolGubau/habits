@@ -1,26 +1,28 @@
 import {
   Button,
   DatePicker,
+  Divider,
   Input,
-  InputNumber,
   message,
   Select,
+  Space,
+  InputRef,
   TimePicker,
 } from "antd";
+import { PlusOutlined } from "@ant-design/icons";
 import axios from "axios";
-import { UserOutlined, FieldNumberOutlined } from "@ant-design/icons";
-import React, { useCallback, useEffect } from "react";
+import { UserOutlined } from "@ant-design/icons";
+import React, { useRef, useState } from "react";
 import { useRecoilState } from "recoil";
 import { initialNewExpenseState } from "src/utils/initialStates";
 import useExpensesFunctions from "src/hooks/useExpensesFunctions";
 import { lastExpenseState, newExpenseState } from "src/Recoil/Atoms";
-import { convertToEuro, currencies } from "src/utils/currency";
+import { currencies } from "src/utils/currency";
 import PATH from "src/utils/path";
 import { ExpensesFormStyle } from "./Styles";
 import { useRouter } from "next/router";
 import dayjs from "dayjs";
 import { categories, shops } from "./valuesForForm";
-import { NoticeType } from "../Login/LoginForm";
 
 export const NewExpenseForm = () => {
   const router = useRouter();
@@ -29,7 +31,25 @@ export const NewExpenseForm = () => {
   const [newExpenses, setNewExpenses] = useRecoilState(newExpenseState);
   const [lastExpenses, setLastExpenses] = useRecoilState(lastExpenseState);
   const [isMinus, setIsMinus] = React.useState(true);
+  const [allShops, setShops] = useState(shops);
+  const [name, setName] = useState("");
+  //
 
+  const inputRef = useRef<InputRef>(null);
+  const addItem = (
+    e: React.MouseEvent<HTMLButtonElement | HTMLAnchorElement>
+  ) => {
+    e.preventDefault();
+    const newShop = {
+      label: name,
+      value: name,
+    };
+    setShops([...allShops, newShop]);
+    setName("");
+    setTimeout(() => {
+      inputRef.current?.focus();
+    }, 0);
+  };
   //
   const modifyNewExpense = (e: { target: { name: string; value: string } }) => {
     setNewExpenses({ ...newExpenses, [e.target.name]: e.target.value });
@@ -137,8 +157,7 @@ export const NewExpenseForm = () => {
       />
       <Select
         showSearch
-        style={{ minWidth: 150 }}
-        options={shops}
+        style={{ minWidth: 200 }}
         value={newExpenses.shop}
         placeholder="Shop"
         onChange={(e) =>
@@ -147,6 +166,27 @@ export const NewExpenseForm = () => {
             shop: e as string,
           })
         }
+        dropdownRender={(menu) => (
+          <>
+            {menu}
+            <Divider style={{ margin: "8px 0" }} />
+            <Space style={{ padding: "0 8px 4px" }}>
+              <Input
+                name="shop"
+                ref={inputRef}
+                onChange={(e) => {
+                  setName(e.target.value);
+                }}
+              />
+              <Button
+                type="primary"
+                icon={<PlusOutlined />}
+                onClick={addItem}
+              ></Button>
+            </Space>
+          </>
+        )}
+        options={allShops}
       />
       <div className="money">
         <Select
