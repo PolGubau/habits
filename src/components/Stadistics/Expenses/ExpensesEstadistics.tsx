@@ -11,31 +11,33 @@ const ExpensesEstadistics = () => {
     getTotalExpenses(expenses);
   return (
     <StadisticsStyled>
-      <Statistic
-        className="stadistic"
-        title="Ingresos"
-        value={positiveTotal}
-        precision={2}
-        valueStyle={{ color: "#3f8600" }}
-        prefix={<ArrowUpOutlined />}
-        suffix="€"
-      />
-      <Statistic
-        className="stadistic"
-        title="Gastos"
-        value={negativeTotal}
-        precision={2}
-        valueStyle={{ color: "#cf1322" }}
-        prefix={<ArrowDownOutlined />}
-        suffix="€"
-      />
-      <Statistic
-        className="stadistic"
-        title="Ganacias"
-        value={totalBalance}
-        precision={2}
-        suffix="€"
-      />
+      <div className="estadisticas">
+        <Statistic
+          className="stadistic"
+          title="Ingresos"
+          value={positiveTotal}
+          precision={2}
+          valueStyle={{ color: "#3f8600" }}
+          prefix={<ArrowUpOutlined />}
+          suffix="€"
+        />
+        <Statistic
+          className="stadistic"
+          title="Gastos"
+          value={negativeTotal}
+          precision={2}
+          valueStyle={{ color: "#cf1322" }}
+          prefix={<ArrowDownOutlined />}
+          suffix="€"
+        />
+        <Statistic
+          className="stadistic"
+          title="Ganacias"
+          value={totalBalance}
+          precision={2}
+          suffix="€"
+        />
+      </div>
     </StadisticsStyled>
   );
 };

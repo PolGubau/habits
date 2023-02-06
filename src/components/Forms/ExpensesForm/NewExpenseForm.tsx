@@ -23,6 +23,7 @@ import { ExpensesFormStyle } from "./Styles";
 import { useRouter } from "next/router";
 import dayjs from "dayjs";
 import { categories, shops } from "./valuesForForm";
+import MyDatePicker from "src/components/Common/DatePicker";
 
 export const NewExpenseForm = () => {
   const router = useRouter();
@@ -56,7 +57,6 @@ export const NewExpenseForm = () => {
   const floatToInteger = (e: any) => {
     setNewExpenses({ ...newExpenses, [e.target.name]: e.target.value });
   };
-  const [currency, setCurrency] = React.useState("EURO");
 
   const sendNewExpense = (e: any) => {
     e.preventDefault();
@@ -101,8 +101,17 @@ export const NewExpenseForm = () => {
       return true;
     };
     const product = () => {
-      const { name, amount, price, date, time, category, shop, isMinus } =
-        newExpenses;
+      const {
+        name,
+        amount,
+        price,
+        date,
+        time,
+        category,
+        currency,
+        shop,
+        isMinus,
+      } = newExpenses;
       return {
         name,
         amount,
@@ -116,23 +125,34 @@ export const NewExpenseForm = () => {
         userID: id,
       };
     };
-    checkValid() && axios.post(PATH.API.EXPENSES, product());
+    checkValid() &&
+      axios
+        .post(PATH.API.EXPENSES, product())
+        .then(() => {
+          // message if success or error
+          message.success("Expense added");
+        })
+        .catch((err) => {
+          console.log(err);
+          message.error("Error adding expense");
+        });
+
     f.getExpenses();
     setNewExpenses({
       ...initialNewExpenseState,
-      date: dayjs().format("YYYY-MM-DD"),
-      time: dayjs().format("HH:mm:ss"),
+      date: lastExpenses.date,
+      time: lastExpenses.time,
       shop: lastExpenses.shop,
       category: lastExpenses.category,
       currency: lastExpenses.currency,
+      isMinus: lastExpenses.isMinus,
     });
   };
-
-  const dateFormat = "DD/MM/YYYY";
 
   return (
     <ExpensesFormStyle onSubmit={sendNewExpense}>
       <Input
+        autoFocus
         required
         name="name"
         value={newExpenses.name}
@@ -195,16 +215,14 @@ export const NewExpenseForm = () => {
           dropdownMatchSelectWidth={false}
           className="minusSelect"
           onChange={(e) => {
-            console.log(newExpenses.isMinus);
-
             setNewExpenses({
               ...newExpenses,
               isMinus: e as boolean,
             });
           }}
           options={[
-            { label: "-", value: false },
-            { label: "+", value: true },
+            { label: "-", value: true },
+            { label: "+", value: false },
           ]}
           value={newExpenses.isMinus}
         />
@@ -223,15 +241,14 @@ export const NewExpenseForm = () => {
 
         <Select
           dropdownMatchSelectWidth={false}
-          onChange={() => {
-            setCurrency(currency);
+          onChange={(e) => {
             setNewExpenses({
               ...newExpenses,
-              currency: currency,
+              currency: e as string,
             });
           }}
           options={currencies}
-          value={currency}
+          value={newExpenses.currency}
         />
       </div>
 
@@ -245,7 +262,10 @@ export const NewExpenseForm = () => {
         placeholder={"amount"}
         onChange={(e) => modifyNewExpense(e)}
       />
-      <DatePicker defaultValue={dayjs(newExpenses.date, dateFormat)} />
+      <DatePicker
+        value={dayjs(newExpenses.date, "DD/MM/YYYY")}
+        onChange={(e) => setNewExpenses({ ...newExpenses, date: e as any })}
+      />
 
       <TimePicker
         name={"time"}

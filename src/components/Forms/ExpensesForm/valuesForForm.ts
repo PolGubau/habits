@@ -9,9 +9,23 @@ export const categories = [
       { label: "Dairy", value: "Dairy" },
       { label: "Eggs", value: "Eggs" },
       { label: "Bread", value: "Bread" },
+      { label: "Pizza", value: "Pizza" },
       { label: "Grains", value: "Grains" },
+      { label: "Snacks", value: "Snacks" },
+      { label: "Sauces", value: "Sauces" },
+      { label: "Legumes", value: "Legumes" },
+      { label: "Nuts", value: "Nuts" },
       { label: "Sweets", value: "Sweets" },
       { label: "Drinks", value: "Drinks" },
+    ],
+  },
+  {
+    label: "Complete meals",
+    options: [
+      { label: "Breakfast", value: "Breakfast" },
+      { label: "Lunch", value: "Lunch" },
+      { label: "Snack", value: "Snack" },
+      { label: "Dinner", value: "Dinner" },
     ],
   },
   {
@@ -27,6 +41,8 @@ export const categories = [
     options: [
       { label: "Fuel", value: "Fuel" },
       { label: "Maintenance", value: "Maintenance" },
+      { label: "Parking", value: "Parking" },
+      { label: "Public Transport", value: "Public Transport" },
     ],
   },
   {
@@ -54,6 +70,47 @@ export const categories = [
     ],
   },
   {
+    label: "Hobbies",
+    options: [
+      { label: "Books", value: "Books" },
+      { label: "Sports", value: "Sports" },
+      { label: "Gaming", value: "Gaming" },
+      { label: "Hobbies", value: "Hobbies" },
+    ],
+  },
+  {
+    label: "Pets",
+    options: [
+      { label: "Pet Toys", value: "Pet Toys" },
+      { label: "Vet", value: "Vet" },
+      { label: "Pet Accessories", value: "Pet Accessories" },
+    ],
+  },
+  {
+    label: "Travel",
+    options: [
+      { label: "Tickets", value: "Tickets" },
+      { label: "Accommodation", value: "Accommodation" },
+      { label: "Transport", value: "Transport" },
+    ],
+  },
+  {
+    label: "Hygiene",
+    options: [
+      { label: "Shower", value: "Shower" },
+      { label: "Haircut", value: "Haircut" },
+      { label: "Hair products", value: "Hair products" },
+      { label: "Makeup", value: "Makeup" },
+      { label: "Nails", value: "Nails" },
+      { label: "Cosmetics", value: "Cosmetics" },
+      { label: "Toothpaste", value: "Toothpaste" },
+      { label: "Tampax", value: "Tampax" },
+      { label: "Deodorant", value: "Deodorant" },
+      { label: "Shaving", value: "Shaving" },
+      { label: "Feminine hygiene", value: "Feminine hygiene" },
+    ],
+  },
+  {
     label: "Health",
     options: [
       { label: "Medicine", value: "Medicine" },
@@ -66,6 +123,8 @@ export const categories = [
     label: "Other",
     options: [
       { label: "Gift", value: "Gift" },
+      { label: "Plant", value: "Plant" },
+
       { label: "Other", value: "Other" },
     ],
   },
@@ -111,6 +170,7 @@ export const shops = [
   { label: "Sale", value: "Sale" },
   { label: "K-Market", value: "K-Market" },
   { label: "Hemköp", value: "Hemköp" },
+  { label: "Normal", value: "Normal" },
   { label: "H&M", value: "H&M" },
   // restaurants
   { label: "McDonalds", value: "McDonalds" },
@@ -178,6 +238,22 @@ export const shops = [
   { label: "Hospital", value: "Hospital" },
   { label: "Clinic", value: "Clinic" },
   { label: "Optician", value: "Optician" },
+
+  // Entertainment
+  { label: "Cinema", value: "Cinema" },
+  { label: "Bowling", value: "Bowling" },
+  { label: "Theatre", value: "Theatre" },
+  { label: "Concert", value: "Concert" },
+  { label: "Opera", value: "Opera" },
+  { label: "Museum", value: "Museum" },
+  { label: "Exhibition", value: "Exhibition" },
+  { label: "Festival", value: "Festival" },
+  { label: "Party", value: "Party" },
+  { label: "Zoo", value: "Zoo" },
+  { label: "Aquarium", value: "Aquarium" },
+  { label: "Theme Park", value: "Theme Park" },
+  { label: "Casino", value: "Casino" },
+  { label: "Monument", value: "Monument" },
 
   // Other
   { label: "Bizzum", value: "Bizzum" },

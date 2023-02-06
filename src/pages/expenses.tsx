@@ -4,7 +4,7 @@ import { useRecoilValue } from "recoil";
 import useExpensesFunctions from "../hooks/useExpensesFunctions";
 import LayoutPage from "src/Layouts/Layout";
 import { expensesState } from "src/Recoil/Atoms";
-import { message, Switch, Table, Tabs, TabsProps, Tag } from "antd";
+import { message, Table, Tabs, TabsProps, Tag } from "antd";
 import { NewExpenseForm } from "src/components/Forms/ExpensesForm/NewExpenseForm";
 import moment from "moment";
 import { ExpensesPageStyle } from "src/styles/PageStyles/ExpensesPageStyles";
@@ -14,6 +14,7 @@ import PATH from "src/utils/path";
 import { useRouter } from "next/router";
 import { convertToEuro } from "src/utils/currency";
 import ExpensesEstadistics from "src/components/Stadistics/Expenses/ExpensesEstadistics";
+import { log } from "console";
 
 const Expenses = () => {
   const f = useExpensesFunctions();
@@ -48,6 +49,7 @@ const Expenses = () => {
 
   const dataSource = expenses?.map((expense: IExpense) => {
     const formalizedPrice = () => {
+      console.log(expense);
       const priceInEuro = convertToEuro(expense.currency, expense.price);
       const price = seeTotalPrice ? priceInEuro * expense.amount : priceInEuro;
 

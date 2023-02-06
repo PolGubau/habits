@@ -7,21 +7,27 @@ export const StadisticsStyled = styled.main`
   flex-direction: row;
   flex-wrap: wrap;
   justify-content: center;
-  .stadistic {
+  .estadisticas {
     display: flex;
-    background-color: #e7e7e7;
-    padding: 10px;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
     align-items: center;
-    flex-direction: column;
-    max-width: 200px;
-    flex-grow: 1;
-    border-right: 1px solid #b2b2b2;
-    :first-child {
-      border-radius: 15px 0 0 15px;
-    }
-    :last-child {
-      border-right: none;
-      border-radius: 0 15px 15px 0;
+    border: 1px solid #cacaca;
+    border-radius: 15px;
+    background-color: #cacaca;
+    gap: 1px;
+    overflow: hidden;
+
+    .stadistic {
+      background-color: #e7e7e7;
+      min-width: 150px;
+      display: flex;
+      padding: 10px;
+      justify-content: center;
+      flex-grow: 1;
+      align-items: center;
+      flex-direction: column;
     }
   }
 `;
