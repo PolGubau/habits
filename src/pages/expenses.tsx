@@ -1,9 +1,13 @@
 import React, { useEffect } from "react";
 import { IExpense } from "../utils/initialStates";
-import { useRecoilValue } from "recoil";
+import { useRecoilState, useRecoilValue } from "recoil";
 import useExpensesFunctions from "../hooks/useExpensesFunctions";
 import LayoutPage from "src/Layouts/Layout";
-import { expensesState } from "src/Recoil/Atoms";
+import {
+  expensesState,
+  newExpenseMethodAtom,
+  newExpenseState,
+} from "src/Recoil/Atoms";
 import { Button, message, Table, Tabs, TabsProps, Tag } from "antd";
 import { NewExpenseForm } from "src/components/Forms/ExpensesForm/NewExpenseForm";
 import moment from "moment";
@@ -14,11 +18,14 @@ import PATH from "src/utils/path";
 import { useRouter } from "next/router";
 import { convertToEuro } from "src/utils/currency";
 import ExpensesEstadistics from "src/components/Stadistics/Expenses/ExpensesEstadistics";
-import { RedoOutlined } from "@ant-design/icons";
+import { RedoOutlined, EditOutlined } from "@ant-design/icons";
 
 const Expenses = () => {
   const f = useExpensesFunctions();
   const [seeTotalPrice, setSeeTotalPrice] = React.useState(true);
+  const [, setNewExpenses] = useRecoilState(newExpenseState);
+  const [newExpenseMethod, setNewExpenseMethod] =
+    useRecoilState(newExpenseMethodAtom);
   const router = useRouter();
   const expenses = useRecoilValue(expensesState);
   const [messageApi, contextHolder] = message.useMessage();
@@ -39,17 +46,23 @@ const Expenses = () => {
       content: "Your expense has been deleted",
     });
   };
-
   const dateFormater = (date: string) => {
     return new Date(date).getTime();
   };
-  const handleDeleteRow = (id: any) => {
+  const handleDeleteRow = (id: number | string) => {
     f.deleteExpense(Number(id));
+  };
+  const handleEditRow = (id: number | string) => {
+    const expense: IExpense | undefined = expenses.find(
+      (expense) => expense.id === Number(id)
+    );
+    if (expense) {
+      setNewExpenses(expense as any);
+    }
   };
 
   const dataSource = expenses?.map((expense: IExpense) => {
     const formalizedPrice = () => {
-      console.log(expense);
       const priceInEuro = convertToEuro(expense.currency, expense.price);
       const price = seeTotalPrice ? priceInEuro * expense.amount : priceInEuro;
 
@@ -61,7 +74,6 @@ const Expenses = () => {
       price: formalizedPrice(),
       category: expense.category,
       shop: expense.shop,
-      amount: expense.amount,
       date: dateFormater(expense.date),
     };
   });
@@ -92,40 +104,51 @@ const Expenses = () => {
       dataIndex: "shop",
       key: "shop",
     },
-    {
-      title: "Amount",
-      dataIndex: "amount",
-      key: "amount",
 
-      sorter: (a: any, b: any) => a.amount - b.amount,
-    },
     {
       title: "Date",
       dataIndex: "date",
       key: "date",
       sorter: (a: any, b: any) =>
         new Date(a.date).getTime() - new Date(b.date).getTime(),
-      render: (date: any) => moment(date).format("DD/MM/YYYY HH:mm"),
+      render: (date: any) => moment(date).format("YYYY/MM/DD"),
       defaultSortOrder: "descend",
     },
     {
       title: "",
       key: "action",
       render: () => (
-        <Tag
-          className="deleteAction"
-          onClick={(e) => {
-            e.preventDefault();
-            const id =
-              e.currentTarget.parentElement?.parentElement?.getAttribute(
-                "data-row-key"
-              );
-            handleDeleteRow(id);
-            messageSuccess();
-          }}
-        >
-          <RiDeleteBin7Line />
-        </Tag>
+        <>
+          <Tag
+            className="editAction"
+            onClick={(e) => {
+              e.preventDefault();
+              const id =
+                e.currentTarget.parentElement?.parentElement?.getAttribute(
+                  "data-row-key"
+                );
+              setNewExpenseMethod("Edit");
+              if (id) handleEditRow(id);
+            }}
+          >
+            <EditOutlined />
+          </Tag>
+          <Tag
+            className="deleteAction"
+            onClick={(e) => {
+              e.preventDefault();
+              const id =
+                e.currentTarget.parentElement?.parentElement?.getAttribute(
+                  "data-row-key"
+                );
+              if (id) handleDeleteRow(id);
+
+              messageSuccess();
+            }}
+          >
+            <RiDeleteBin7Line />
+          </Tag>
+        </>
       ),
     },
   ];
@@ -136,7 +159,7 @@ const Expenses = () => {
 
     setTimeout(() => {
       setLoadingState(false);
-    }, 1000);
+    }, 300);
   };
 
   const items: TabsProps["items"] = [
@@ -156,6 +179,7 @@ const Expenses = () => {
           </Button>
 
           <Table
+            loading={loadingState}
             dataSource={dataSource}
             columns={columns as any}
             pagination={{ pageSize: 5 }}

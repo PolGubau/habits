@@ -1,6 +1,7 @@
 import { actualDate, actualHourMinutes } from "src/utils/date";
 
 export const initialNewExpenseState = {
+  id: 0,
   name: "",
   price: 100,
   amount: 1,
@@ -13,7 +14,7 @@ export const initialNewExpenseState = {
 };
 
 export interface IExpense {
-  id: number;
+  id?: number;
   name: string;
   price: number;
   amount: number;

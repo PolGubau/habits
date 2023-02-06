@@ -14,6 +14,10 @@ export const lastExpenseState = atom({
   key: "expenseLastAtom",
   default: initialNewExpenseState,
 });
+export const newExpenseMethodAtom = atom({
+  key: "newExpenseMethodAtom",
+  default: "Add",
+});
 
 //
 //

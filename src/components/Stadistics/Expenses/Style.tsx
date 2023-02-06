@@ -13,14 +13,13 @@ export const StadisticsStyled = styled.main`
     flex-wrap: wrap;
     justify-content: center;
     align-items: center;
-    border: 1px solid #cacaca;
+    border: 1px solid #d4d4d4;
     border-radius: 15px;
-    background-color: #cacaca;
+    background-color: #d4d4d4;
     gap: 1px;
     overflow: hidden;
-
     .stadistic {
-      background-color: #e7e7e7;
+      background-color: #ececec;
       min-width: 150px;
       display: flex;
       padding: 10px;

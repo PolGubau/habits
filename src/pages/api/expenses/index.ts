@@ -43,16 +43,15 @@ export default async function handler(
           currency,
         } = body;
 
-        const dateTime = new Date(`${date} ${time}`);
-
         const query =
-          'INSERT INTO "public"."expenses" ("name", "amount","price", "date","userID", "category", "shop","isMinus","currency" ) VALUES ($1, $2, $3, $4, $5, $6, $7, $8,$9) RETURNING *;';
+          'INSERT INTO "public"."expenses" ("name", "amount","price", "date","time", "userID", "category", "shop", "isMinus", "currency" ) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10) RETURNING *;';
 
         const response = await conn.query(query, [
           name,
           amount,
           price,
-          dateTime,
+          date,
+          time,
           userID,
           category,
           shop,

@@ -1,142 +1,15 @@
-export const categories = [
-  {
-    label: "Food",
-    options: [
-      { label: "Fruit", value: "Fruit" },
-      { label: "Vegetables", value: "Vegetables" },
-      { label: "Meat", value: "Meat" },
-      { label: "Fish", value: "Fish" },
-      { label: "Dairy", value: "Dairy" },
-      { label: "Eggs", value: "Eggs" },
-      { label: "Bread", value: "Bread" },
-      { label: "Pizza", value: "Pizza" },
-      { label: "Grains", value: "Grains" },
-      { label: "Snacks", value: "Snacks" },
-      { label: "Sauces", value: "Sauces" },
-      { label: "Legumes", value: "Legumes" },
-      { label: "Nuts", value: "Nuts" },
-      { label: "Sweets", value: "Sweets" },
-      { label: "Drinks", value: "Drinks" },
-    ],
-  },
-  {
-    label: "Complete meals",
-    options: [
-      { label: "Breakfast", value: "Breakfast" },
-      { label: "Lunch", value: "Lunch" },
-      { label: "Snack", value: "Snack" },
-      { label: "Dinner", value: "Dinner" },
-    ],
-  },
-  {
-    label: "Household",
-    options: [
-      { label: "Cleaning", value: "Cleaning" },
-      { label: "Laundry", value: "Laundry" },
-      { label: "Toiletries", value: "Toiletries" },
-    ],
-  },
-  {
-    label: "Transport",
-    options: [
-      { label: "Fuel", value: "Fuel" },
-      { label: "Maintenance", value: "Maintenance" },
-      { label: "Parking", value: "Parking" },
-      { label: "Public Transport", value: "Public Transport" },
-    ],
-  },
-  {
-    label: "Entertainment",
-    options: [
-      { label: "Movies", value: "Movies" },
-      { label: "Music", value: "Music" },
-      { label: "Games", value: "Games" },
-    ],
-  },
-  {
-    label: "Clothes",
-    options: [
-      { label: "Clothes", value: "Clothes" },
-      { label: "Shoes", value: "Shoes" },
-      { label: "Accessories", value: "Accessories" },
-    ],
-  },
-  {
-    label: "Electronics",
-    options: [
-      { label: "Electronics", value: "Electronics" },
-      { label: "Computers", value: "Computers" },
-      { label: "Phones", value: "Phones" },
-    ],
-  },
-  {
-    label: "Hobbies",
-    options: [
-      { label: "Books", value: "Books" },
-      { label: "Sports", value: "Sports" },
-      { label: "Gaming", value: "Gaming" },
-      { label: "Hobbies", value: "Hobbies" },
-    ],
-  },
-  {
-    label: "Pets",
-    options: [
-      { label: "Pet Toys", value: "Pet Toys" },
-      { label: "Vet", value: "Vet" },
-      { label: "Pet Accessories", value: "Pet Accessories" },
-    ],
-  },
-  {
-    label: "Travel",
-    options: [
-      { label: "Tickets", value: "Tickets" },
-      { label: "Accommodation", value: "Accommodation" },
-      { label: "Transport", value: "Transport" },
-    ],
-  },
-  {
-    label: "Hygiene",
-    options: [
-      { label: "Shower", value: "Shower" },
-      { label: "Haircut", value: "Haircut" },
-      { label: "Hair products", value: "Hair products" },
-      { label: "Makeup", value: "Makeup" },
-      { label: "Nails", value: "Nails" },
-      { label: "Cosmetics", value: "Cosmetics" },
-      { label: "Toothpaste", value: "Toothpaste" },
-      { label: "Tampax", value: "Tampax" },
-      { label: "Deodorant", value: "Deodorant" },
-      { label: "Shaving", value: "Shaving" },
-      { label: "Feminine hygiene", value: "Feminine hygiene" },
-    ],
-  },
-  {
-    label: "Health",
-    options: [
-      { label: "Medicine", value: "Medicine" },
-      { label: "Doctor", value: "Doctor" },
-      { label: "Dentist", value: "Dentist" },
-      { label: "Gym", value: "Gym" },
-    ],
-  },
-  {
-    label: "Other",
-    options: [
-      { label: "Gift", value: "Gift" },
-      { label: "Plant", value: "Plant" },
-
-      { label: "Other", value: "Other" },
-    ],
-  },
-];
-
 export const shops = [
   { label: "Mercadona", value: "Mercadona" },
   { label: "Carrefour", value: "Carrefour" },
   { label: "Dia", value: "Dia" },
+  { label: "Digi", value: "Digi" },
   { label: "Lidl", value: "Lidl" },
-  { label: "Alcampo", value: "Alcampo" },
+  { label: "Auchan", value: "Auchan" },
   { label: "Eroski", value: "Eroski" },
+  { label: "Shein", value: "Shein" },
+  { label: "Ali Express", value: "Ali Express" },
+  { label: "Zalando", value: "Zalando" },
+  { label: "Asos", value: "Asos" },
   { label: "Hipercor", value: "Hipercor" },
   { label: "Aldi", value: "Aldi" },
   { label: "Bricomart", value: "Bricomart" },
@@ -144,6 +17,12 @@ export const shops = [
   { label: "Decathlon", value: "Decathlon" },
   { label: "Media Markt", value: "Media Markt" },
   { label: "Fnac", value: "Fnac" },
+  { label: "Amazon", value: "Amazon" },
+  { label: "Kebab", value: "Kebab" },
+  { label: "Bazar", value: "Bazar" },
+  { label: "Consum", value: "Consum" },
+  { label: "Hipercor", value: "Hipercor" },
+  { label: "Bon Àrea", value: "Bon Àrea" },
   { label: "El Corte Inglés", value: "El Corte Inglés" },
   { label: "Zara", value: "Zara" },
   { label: "Pull & Bear", value: "Pull & Bear" },
@@ -170,6 +49,7 @@ export const shops = [
   { label: "Sale", value: "Sale" },
   { label: "K-Market", value: "K-Market" },
   { label: "Hemköp", value: "Hemköp" },
+  { label: "OAS", value: "OAS" },
   { label: "Normal", value: "Normal" },
   { label: "H&M", value: "H&M" },
   // restaurants
@@ -180,6 +60,8 @@ export const shops = [
   { label: "KFC", value: "KFC" },
   { label: "Pizza Hut", value: "Pizza Hut" },
   { label: "Wok", value: "Wok" },
+  { label: "COndis", value: "COndis" },
+  { label: "Juanitas tapas", value: "Juanitas tapas" },
   { label: "Sushi", value: "Sushi" },
   { label: "Thai", value: "Thai" },
   { label: "Indian", value: "Indian" },
@@ -192,18 +74,20 @@ export const shops = [
   { label: "French", value: "French" },
   { label: "German", value: "German" },
 
-  // bars
+  // Bars
   { label: "Bar", value: "Bar" },
   { label: "Pub", value: "Pub" },
   { label: "Club", value: "Club" },
 
-  // cafes
+  // Cafes
   { label: "Starbucks", value: "Starbucks" },
   { label: "365", value: "365" },
   { label: "Granier", value: "Granier" },
+  { label: "Bar Maresme", value: "Bar Maresme" },
 
   // Rent
   { label: "Rent", value: "Rent" },
+  { label: "Mortgage", value: "Mortgage" },
 
   // Bills
   { label: "Electricity", value: "Electricity" },
@@ -254,6 +138,16 @@ export const shops = [
   { label: "Theme Park", value: "Theme Park" },
   { label: "Casino", value: "Casino" },
   { label: "Monument", value: "Monument" },
+  { label: "Gym", value: "Gym" },
+  { label: "Sports", value: "Sports" },
+  { label: "Swimming", value: "Swimming" },
+  { label: "Yoga", value: "Yoga" },
+  { label: "Disco", value: "Disco" },
+  { label: "Music", value: "Music" },
+  { label: "Karaoke", value: "Karaoke" },
+  { label: "Dance", value: "Dance" },
+  { label: "Comedy", value: "Comedy" },
+  { label: "Circus", value: "Circus" },
 
   // Other
   { label: "Bizzum", value: "Bizzum" },

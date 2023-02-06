@@ -22,18 +22,33 @@ export default async function handler(
 
     case "PUT":
       try {
-        const { name, amount, date, time, category, shop } = body;
-
-        const dateTime = new Date(`${date} ${time}`);
+        const {
+          id,
+          name,
+          amount,
+          price,
+          date,
+          time,
+          category,
+          shop,
+          isMinus,
+          userID,
+          currency,
+        } = body;
 
         const query =
-          'UPDATE "public"."expenses" SET name = $1, amount = $2, "date" = $3, "category" = $4, "shop"=$5 WHERE "id" = $6 RETURNING *;';
+          'UPDATE "public"."expenses" SET "name" = $1, "amount" = $2, "price" = $3, "date" = $4, "time" = $5, "category" = $6, "shop" = $7, "isMinus" = $8, "userID" = $9, "currency" = $10 WHERE "id" = $11 RETURNING *;';
         const response = await conn.query(query, [
           name,
           amount,
-          dateTime,
+          price,
+          date,
+          time,
           category,
           shop,
+          isMinus,
+          userID,
+          currency,
           id,
         ]);
         return res.json(response.rows);

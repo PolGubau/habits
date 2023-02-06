@@ -21,6 +21,7 @@ const ExpensesEstadistics = () => {
           prefix={<ArrowUpOutlined />}
           suffix="€"
         />
+        {/*  */}
         <Statistic
           className="stadistic"
           title="Gastos"
@@ -30,6 +31,7 @@ const ExpensesEstadistics = () => {
           prefix={<ArrowDownOutlined />}
           suffix="€"
         />
+        {/*  */}
         <Statistic
           className="stadistic"
           title="Ganacias"
