@@ -4,7 +4,7 @@ import { useRecoilValue } from "recoil";
 import useExpensesFunctions from "../hooks/useExpensesFunctions";
 import LayoutPage from "src/Layouts/Layout";
 import { expensesState } from "src/Recoil/Atoms";
-import { message, Table, Tabs, TabsProps, Tag } from "antd";
+import { Button, message, Table, Tabs, TabsProps, Tag } from "antd";
 import { NewExpenseForm } from "src/components/Forms/ExpensesForm/NewExpenseForm";
 import moment from "moment";
 import { ExpensesPageStyle } from "src/styles/PageStyles/ExpensesPageStyles";
@@ -14,7 +14,7 @@ import PATH from "src/utils/path";
 import { useRouter } from "next/router";
 import { convertToEuro } from "src/utils/currency";
 import ExpensesEstadistics from "src/components/Stadistics/Expenses/ExpensesEstadistics";
-import { log } from "console";
+import { RedoOutlined } from "@ant-design/icons";
 
 const Expenses = () => {
   const f = useExpensesFunctions();
@@ -129,18 +129,39 @@ const Expenses = () => {
       ),
     },
   ];
+  const [loadingState, setLoadingState] = React.useState(false);
+  const handleRefresh = () => {
+    f.getExpenses();
+    setLoadingState(true);
+
+    setTimeout(() => {
+      setLoadingState(false);
+    }, 1000);
+  };
 
   const items: TabsProps["items"] = [
     {
       key: "1",
       label: `Tabla`,
       children: (
-        <Table
-          dataSource={dataSource}
-          columns={columns as any}
-          pagination={{ pageSize: 5 }}
-          sticky
-        />
+        <>
+          <Button
+            type="primary"
+            icon={<RedoOutlined />}
+            loading={loadingState}
+            value={"Refresh"}
+            onClick={handleRefresh}
+          >
+            Refresh
+          </Button>
+
+          <Table
+            dataSource={dataSource}
+            columns={columns as any}
+            pagination={{ pageSize: 5 }}
+            sticky
+          />
+        </>
       ),
     },
     {
